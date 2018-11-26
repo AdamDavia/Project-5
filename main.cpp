@@ -1,66 +1,128 @@
-/*	Project:    Project #5
-	Name:       Adam Davis
-    Partner:    N/A
-    Class:     CSC 1810 - Section 1
+/*	Project:    NAME OF PROJECT GOES HERE
+	Name:       YOUR NAME GOES HERE
+    Partner:    PARTNER'S NAME IF ANY
+    Class:      example: CSC 1810 - Section 1
 */
+
 #include <iostream>
-#include <vector>
-#include "GeneSeq.h"
-#include "Seq.cpp"
-#include "Gene.h"
-#include "Allele.h"
-#include "Chromosome.h"
+#include <fstream>
+#include <algorithm>
 
 using namespace std;
 
 int main(int argc, char *argv[])
 {
-	int Userinput = 0;
-	string chromosome = "";
+	int num_Imports = 0;
+	cout << "How many files are you going to import?" << endl;
+	//cin >> num_Imports;
+	//cin.clear();
+	//cin.ignore(1000, '\n');
 
-	cout << "1 - Create chromosome" << endl;
-	cout << "2 - Analyze chromosome" << endl;
-	cout << "3 - Output chromosome to file" << endl;
-	cout << "4 - Input chromosome from file" << endl;
-	cout << "5 - Combine chromosomes" << endl;
-	cout << "6 - Quit" << endl;
-	cout << "Hello User. Please input a number to select a menu option. " << endl;
+	num_Imports = 1;
 
-	cin >> Userinput;
-
-	while (Userinput != 6)
+	for (int i = 0; i < num_Imports; i++)
 	{
+		cout << endl;
+		cout << "Please make sure your file is set up as follows." << endl
+			 << endl;
+		cout << "Chromosome: Name, # of Genes." << endl;
+		cout << "Gene 1: Gene Name, Body Aspect, Allele Sequence" << endl;
+		cout << "Allele 1: Trait 1, Dominent or Recessive, Trait 2, Dominent or Recessive." << endl;
+		cout << "Allele 2: Trait 1, Dominent or Recessive, Trait1 2, Dominent or Recessive." << endl;
+		cout << "Gene 1: Gene Name, Body Aspect, Allele Sequence" << endl;
+		cout << "Allele 1: Trait 1, Dominent or Recessive, Trait 2, Dominent or Recessive." << endl;
+		cout << "Allele 2: Trait 1, Dominent or Recessive, Trait1 2, Dominent or Recessive." << endl;
+		cout << "Etc..." << endl
+			 << endl;
 
-		if (Userinput == 1)
-		{
-			GeneSeq.Create();
-		}
-		else if (Userinput == 2)
-		{
-			GeneSeq.Analyze();
-		}
-		else if (Userinput == 3)
-		{
-			GeneSeq.Output();
-		}
-		else if (Userinput == 4)
-		{
-			GeneSeq.Input();
-		}
-		else if (Userinput == 5)
-		{
-			GeneSeq.Combine();
-		}
-		else
-		{
-			cout << "Invalid Input." << endl;
-		}
+		cout << "Don't forget the period at the end." << endl
+			 << endl;
+
+		cout << "Chromosome: Tim, 3." << endl;
+		cout << "Gene: CATH, Hair, BrBR." << endl;
+		cout << "Allele 1: Brown, Dominent, Light, Recessive." << endl;
+		cout << "Allele 2: Brown, Domient, Dark, Domient." << endl;
+		cout << "Gene: FEFEFE, Feet, BbBb." << endl;
+		cout << "Allele 1: Wide, Dominent, Flat, Recessive." << endl;
+		cout << "Allele 2: Skinny, Domient, Flat, Recessive." << endl;
+		cout << "Gene: EYEE, Eyes, Eeee." << endl;
+		cout << "Allele 1: Green, Dominent, Light, Recessive." << endl;
+		cout << "Allele 2: Blue, Recessive, Light, Recessive" << endl
+			 << endl;
+
+		string Chrome_Line;
+
+		cout << "Please enter the file location of the file." << endl;
+		Chrome_Line = "/home/student/src/Project_5/test.txt";
+		/*getline(cin, Chrome_Line);
 		cin.clear();
-		cin.ignore(1000, '\n');
-		cout << "Please Enter a new input number: " << endl;
-		cin >> Userinput;
-	}
+		cin.ignore(1000, '\n');*/
 
+		ifstream myfile;
+		myfile.open(Chrome_Line);
+
+		int num_lines = 1;
+
+		vector<string> test(num_lines);
+
+		while (!myfile.is_open())
+		{
+			cout << "File " << Chrome_Line << " could not open. Please try again." << endl;
+
+			cout << "Please enter the file location of the file containing the genes you would like to import." << endl;
+			getline(cin, Chrome_Line);
+
+			myfile.open(Chrome_Line);
+		}
+
+		getline(myfile, test.at(0));
+
+		int num_Genes = 0;
+		string Help = test.at(0);
+
+		/*
+		Find number of Genes. Then tell the bot bellow how many. Or put it above.
+		for (unsigned int i = 0; i < test.at(0).size(); i++)
+		{
+			if (isdigit(Help.at(i)))
+			{
+				num_Genes = Help.at(i);
+			}
+		}*/
+
+		cout << test.at(0) << endl;
+
+		num_Genes = (num_Genes - 1) / 3;
+
+		test.resize(num_Genes);
+
+		while (!myfile.eof())
+		{
+			for (int i = 0; i < num_Genes; i++)
+			{
+				getline(myfile, test.at(i));
+			}
+			if (std::find(test.at(i).begin(), test.at(i).end(), '.') != test.at(i).end())
+			{
+				myfile >> test.at(i);
+				cout << test.at(i) << endl;
+			}
+		}
+		int a = 0;
+
+		while (a != 100)
+		{
+
+			cout << test.at(a) << endl;
+			cin >> a;
+			cin.clear();
+			cin.ignore(1000, '\n');
+		}
+
+		//home/student/src/Project_5/test.txt
+
+		myfile.close();
+	}
 	{
 		char c;
 		cout << "Hit enter to exit:";
