@@ -1,13 +1,21 @@
 Chromosome: Tim, 4
-Gene: CATH, Hair, BrBR
+Gene: CATH, Hair
+Allele Sequence: BrBR
+Expressed Traits: Brown, Dominent, Light, Recessive
 Allele 1: Brown, Dominent, Light, Recessive
-Allele 2: Brown, Domient, Dark, Domient
-Gene: FEFEFE, Feet, BbBb
+Allele 2: Brown, Dominent, Dark, Dominent
+Gene: FEFEFE, Feet
+Allele Sequence: BbBb
+Expressed Traits: Wide, Dominent, Flat, Recessive
 Allele 1: Wide, Dominent, Flat, Recessive
-Allele 2: Skinny, Domient, Flat, Recessive
-Gene: EYEE, Eyes, Eeee
+Allele 2: Skinny, Dominent, Flat, Recessive
+Gene: EYEE, Eyes
+Allele Sequence: Eeee
+Expressed Traits: Blue, Recessive, Light, Recessive
 Allele 1: Green, Dominent, Light, Recessive
 Allele 2: Blue, Recessive, Light, Recessive
-Gene: RYEE, Butt, WLwl
+Gene: RYEE, Butt
+Allele Sequence: WLwl
+Expressed Traits: Wide, Dominent, High, Recessive
 Allele 1: Wide, Dominent, Low, Dominent
 Allele 2: Skinny, Recessive, High, Recessive
