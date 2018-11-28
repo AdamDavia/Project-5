@@ -9,6 +9,11 @@
 
 using namespace std;
 
+string Allele::GetAllelee()
+{
+	return allelee;
+}
+
 void Allele::Create()
 {
 
@@ -449,9 +454,4 @@ void Allele::Mixer()
 
 	//sets allele to second set of information
 	allelee = allelee + ", " + DomTrait + ", " + Domin + " Allele 1: " + allele1 + "Allele 2: " + allele2;
-};
-
-void Allele::Import()
-{
-	cout << "Ok then we will have to find the gene you would like to import to. First off what is the name of the chromosome?" << endl;
 };

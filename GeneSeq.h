@@ -5,25 +5,21 @@ using namespace std;
 
 class GenSeq
 {
+  private:
+	vector<std::string> ChromosomePair;
 
-	//void Import();
-	/* public :
-         // default constructor
-        ChromosomePair  CreateChromosomePair();
+  public:
+	void Combine();
+	void CreateChromosomePair();
+	void ExportChromosomePair();
 
-	         // returns a chromosome object from data in 'filename'
-        ChromosomePair  ImportChromosomePair(const string &fileName = "");
+	void OutputOrigins();
+	void Read();
 
-	         // saves chromosome 'c' data to file 'filename'
-        void ExportChromosomePair(ChromosomePair c, const string &fileName = "");
-
-	         // returns chromosome from 'x' and 'y' genes - allele selection is random
-        ChromosomePair  DoMeiosis(ChromosomePair x, ChromosomePair y);
-
-	  // outputs genotype (dominant alleles for each gene) in 'c'
-        void SequenceChromosomePair(ChromosomePair c);
-
-	    // executes all unit tests on each object. Returns true if all tests pass*/
+	/*
+        // executes all unit tests on each object. Returns true if all tests pass
+        bool PowerOnSelfTest();
+*/
 };
 
 /*

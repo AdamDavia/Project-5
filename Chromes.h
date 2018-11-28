@@ -7,11 +7,16 @@ using namespace std;
 class Chromes
 {
   private:
-	vector<std::string> Chromosomes;
 	unsigned int num_Chrome;
+	vector<std::string> Chromosomes;
+	string Chromosome;
+	vector<std::string> Genes;
+
+	string GetChromosome();
+	int entry();
+	int num;
 
   public:
-	void Chromesize();
 	void Create();
 	void List();
 	void Analyze();
@@ -19,7 +24,4 @@ class Chromes
 	void Output();
 
 	void Input();
-	/*
-	void Combine();
-*/
 };

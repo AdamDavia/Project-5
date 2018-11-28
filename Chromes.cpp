@@ -8,76 +8,41 @@
 
 using namespace std;
 
-void Chromes::Chromesize()
-{
-	Chromosomes.resize(num_Chrome);
-};
 void Chromes::Create()
 {
 
-	//solve issue of origninal number of Chromosomes.......................................................................................
+	for (unsigned int i = 0; i < Chromosomes.size(); i++)
+	{
+		string Storage = "";
+		Storage = Chromosomes.at(Chromosomes.size() - 1);
+		Chromosomes.at(i).push_back(0);
+	}
 
 	string Name;
-
-	cin.clear();
-	cin.ignore(1000, '\n');
-
-	if (Chromosomes.size() == 0)
+	for (unsigned int y = 0; y < num_Chrome; y++)
 	{
-		Chromosomes.resize(1);
+		cout << "Please name Chromosome " << y + 1 << "." << endl;
+		getline(cin, Name);
+
+		Chromosomes.at(y) = Name;
 	}
 
-	num_Chrome = Chromosomes.size();
-
-	if (num_Chrome >= 23)
+	for (unsigned int y = 0; y < num_Chrome; y++)
 	{
 
-		cout << "Max number of Chromosomes made. Please either delete some to create more." << endl;
-	}
-	else
-	{
-		int i = 0;
-		cout << "How many Chromosomes would you like to have in total? Max you can have is 23. " << endl;
-		cin >> i;
-		num_Chrome = num_Chrome + i;
-
-		while (num_Chrome > 23 || num_Chrome < Chromosomes.size())
+		Gene GE;
+		GE.GCreate();
+		int x = Genes.size();
+		char b = x + '0';
+		Chromosome = "Chromosome: " + Name + ", " + b + ", ";
+		for (unsigned int i = 0; i < Genes.size(); i++)
 		{
-			cout << "Number is too high. You can only have 23 total Chromosomes. Please enter another number. Don't go lower than the current number of Chromosomes. Size is originally set at 1." << endl;
-			cout << "Current Size: " << num_Chrome << endl;
-
-			cin >> num_Chrome;
-		}
-
-		Chromes::Chromesize();
-
-		cin.clear();
-		cin.ignore(1000, '\n');
-
-		if (num_Chrome == 0)
-		{
-			cout << "Well why did you click create Chromosome?" << endl;
-		}
-		else
-		{
-			for (unsigned int y = 0; y < num_Chrome; y++)
-			{
-				cout << "Please name Chromosome " << y + 1 << "." << endl;
-				getline(cin, Name);
-
-				Chromosomes.at(y) = Name;
-			}
-
-			for (unsigned int y = 0; y < num_Chrome; y++)
-			{
-
-				Gene GE;
-				GE.GCreate();
-			}
+			Chromosome = Chromosome + Genes.at(i);
 		}
 	}
+
+	Chromosomes.push_back(0);
 };
-
 void Chromes::Analyze()
 {
 	string name;
@@ -109,6 +74,7 @@ void Chromes::Analyze()
 					found = i;
 
 					i = Chromosomes.size();
+					leave = 1;
 				}
 				else if (save.at(f) == ' ')
 				{
@@ -165,18 +131,17 @@ void Chromes::List()
 
 void Chromes::Output()
 {
-	string outputfile = "";
-	cout << "Pleae enter the file you would like to output your Chromosome to." << endl;
-	getline(cin, outputfile);
 
-	string Num = "";
-	cout << "Please enter the Chromosome Name or Number you would like to export. If unknown type \"List\"." << endl;
-	getline(cin, Num);
-
-	if (isdigit(Num.at(1)) == true)
+	int num_exports = 1;
+	char answer = 'y';
+	while (num_exports > 0)
 	{
-		//need conversion thing from computer..................................................................................
-		int num = Num.at(1);
+		string outputfile = "";
+		cout << "Pleae enter the file you would like to output your Chromosome to." << endl;
+		getline(cin, outputfile);
+		cin.clear();
+		cin.ignore(1000, '\n');
+
 		ofstream myfile;
 
 		myfile.open(outputfile);
@@ -190,193 +155,219 @@ void Chromes::Output()
 			myfile.open(outputfile);
 		}
 
-		myfile << Chromosomes.at(num);
-		myfile.close();
-	}
-	else
-	{
-		int found = 0;
+		string Num = "";
+		cout << "Please enter the Chromosome Name or Number you would like to export. If unknown type \"List\"." << endl;
+		getline(cin, Num);
 		int leave = 0;
-		if (Num == "List")
+		while (leave != 1)
 		{
-			Chromes::List();
-		}
-		for (unsigned int i = 0; i < Chromosomes.size(); i++)
-		{
-			string word = "Hello world. I need this to be long enough so that no name will ever beat me. Hopefully this is long enough.";
-			string save = Chromosomes.at(i);
-
-			for (unsigned int f = 0; f < save.size(); f++)
+			if (Num == "List")
 			{
-				word = save.at(f);
-
-				if (word == Num)
+				Chromes::List();
+				cout << "Please enter the Chromosome Name or Number you would like to export." << endl;
+				getline(cin, Num);
+				int test1 = 0;
+				int test2 = 0;
+				while (test1 != 1 || test2 != 1)
 				{
-					cout << "Chromosome Found!!" << endl;
-					found = i;
+					if (isdigit(Num.at(1)) == true)
+					{
+						char x = Num.at(1);
+						unsigned int num = x - '0';
 
-					i = Chromosomes.size();
-				}
-				else if (save.at(f) == ' ')
-				{
-					word.clear();
+						if (num > (Chromosomes.size()))
+						{
+							char x = Num.at(1);
+							int num = x - '0';
+
+							myfile << Chromosomes.at(num);
+							leave = 1;
+							myfile.close();
+
+							test1 = 1;
+						}
+						else
+						{
+							cout << "Your number is too high to be a Chromosome as there is no Chromosome in that spot. Don't forget it starts at zero. Please enter a lower value." << endl;
+							getline(cin, Num);
+						}
+					}
+					else
+					{
+
+						for (unsigned int i = 0; i < Chromosomes.size(); i++)
+						{
+							string tester = "";
+							string save = Chromosomes.at(i);
+							save.resize(17);
+
+							for (unsigned int f = 0; f < save.size(); f++)
+							{
+								tester = tester + save.at(f);
+
+								if (tester == Num)
+								{
+
+									unsigned int num = i;
+									test2 = 1;
+
+									i = Chromosomes.size();
+									test2 = 1;
+									myfile << Chromosomes.at(num);
+									leave = 1;
+									myfile.close();
+								}
+								else if (save.at(f) == ' ')
+								{
+									tester.clear();
+								}
+							}
+						}
+					}
 				}
 			}
-			if (found == 0)
+			if (leave != 1)
 			{
 				cout << "Name not found. Please try again. If you do not know the name, type \" List \"." << endl;
 				getline(cin, Num);
 			}
 		}
-
-		if (isdigit(Num.at(1)) == true)
+		cout << "Is there anymore exports you would like to do? (y/n)" << endl;
+		cin >> answer;
+		while (answer != 'y' || answer != 'n')
 		{
-			//need conversion thing from computer..................................................................................
-			char x = Num.at(1);
-			int num = x - '0';
-
-			ofstream myfile;
-
-			myfile.open(outputfile);
-			while (!myfile.is_open())
-			{
-				cout << "File " << outputfile << " could not open. Please try again." << endl;
-
-				cout << "Please enter the file location of the file containing the genes you would like to import." << endl;
-				getline(cin, outputfile);
-
-				myfile.open(outputfile);
-			}
-
-			myfile << Chromosomes.at(num);
-			myfile.close();
+			cout << "Invailid input. Please enter a valid input." << endl;
+			cin >> answer;
+		}
+		if (answer == 'n')
+		{
+			num_exports = 0;
+		}
+		else if (answer == 'y')
+		{
+			cout << "Ok. How many more imports would you like to do?" << endl;
+			cin >> num_exports;
 		}
 	}
 };
 
-void Input()
+void Chromes::Input()
 {
+	vector<string> test(2);
 
-	int option = 0;
-	cout << "At what level do you want to import your file to? Chromosome(1)? Gene(2)? Allele(3)?" << endl;
-	if (option == 2)
-	{
-		Gene G;
-		G.Import();
-	}
-	else if (option == 3)
-	{
-		Allele A;
-		A.Import();
-	}
-	else
-	{
+	int num_Imports = 0;
+	cout << "How many files are you going to import?" << endl;
 
-		int num_Imports = 0;
-		cout << "How many files are you going to import?" << endl;
+	cin >> num_Imports;
+	cin.clear();
+	cin.ignore(1000, '\n');
 
-		cin >> num_Imports;
+	for (int i = 0; i < num_Imports; i++)
+	{
+		cout << endl;
+		cout << "Please make sure your file is set up as follows." << endl
+			 << endl;
+		cout << "Chromosome: Name, # of Genes, " << endl;
+		cout << "Gene 1: Gene Name, Body Aspect, " << endl;
+		cout << "Allele Sequence: Allele sequence, " << endl;
+		cout << "Allele 1: Trait 1, Dominent or Recessive, Trait 2, Dominent or Recessive, " << endl;
+		cout << "Allele 2: Trait 1, Dominent or Recessive, Trait1 2, Dominent or Recessive" << endl;
+		cout << "Gene 1: Gene Name, Body Aspect" << endl;
+		cout << "Allele Sequence: Allele sequence" << endl;
+		cout << "Allele 1: Trait 1, Dominent or Recessive, Trait 2, Dominent or Recessive, " << endl;
+		cout << "Allele 2: Trait 1, Dominent or Recessive, Trait1 2, Dominent or Recessive" << endl;
+		cout << "Etc..." << endl
+			 << endl;
+
+		cout << "Don't forget the comma at the end. Also put a space at the end of each line. " << endl;
+		cout << "Except don't put a comma or a space on the end of every Allele 2." << endl
+			 << endl;
+
+		cout << "Chromosome: Tim, 3." << endl;
+		cout << "Gene: CATH, Hair, " << endl;
+		cout << "Allele Sequence: BrBR, " << endl;
+		cout << "Allele 1: Brown, Dominent, Light, Recessive, " << endl;
+		cout << "Allele 2: Brown, Domient, Dark, Domient" << endl;
+		cout << "Gene: FEFEFE, Feet, " << endl;
+		cout << "Allele Sequence: BbBb." << endl;
+		cout << "Allele 1: Wide, Dominent, Flat, Recessive, " << endl;
+		cout << "Allele 2: Skinny, Domient, Flat, Recessive" << endl;
+		cout << "Gene: EYEE, Eyes, " << endl;
+		cout << "Allele Sequence: Eeee, " << endl;
+		cout << "Allele 1: Green, Dominent, Light, Recessive, " << endl;
+		cout << "Allele 2: Blue, Recessive, Light, Recessive" << endl
+			 << endl;
+
+		string Chrome_Line;
+
+		cout << "Please enter the file location of the file." << endl;
+
+		getline(cin, Chrome_Line);
 		cin.clear();
 		cin.ignore(1000, '\n');
 
-		for (int i = 0; i < num_Imports; i++)
+		ifstream myfile;
+		myfile.open(Chrome_Line);
+
+		while (!myfile.is_open())
 		{
-			cout << endl;
-			cout << "Please make sure your file is set up as follows." << endl
-				 << endl;
-			cout << "Chromosome: Name, # of Genes, " << endl;
-			cout << "Gene 1: Gene Name, Body Aspect, " << endl;
-			cout << "Allele Sequence: Allele sequence, " << endl;
-			cout << "Allele 1: Trait 1, Dominent or Recessive, Trait 2, Dominent or Recessive, " << endl;
-			cout << "Allele 2: Trait 1, Dominent or Recessive, Trait1 2, Dominent or Recessive" << endl;
-			cout << "Gene 1: Gene Name, Body Aspect" << endl;
-			cout << "Allele Sequence: Allele sequence" << endl;
-			cout << "Allele 1: Trait 1, Dominent or Recessive, Trait 2, Dominent or Recessive, " << endl;
-			cout << "Allele 2: Trait 1, Dominent or Recessive, Trait1 2, Dominent or Recessive" << endl;
-			cout << "Etc..." << endl
-				 << endl;
+			cout << "File " << Chrome_Line << " could not open. Please try again." << endl;
 
-			cout << "Don't forget the comma at the end. Also put a space at the end of each line. " << endl;
-			cout << "Except don't put a comma or a space on the end of every Allele 2." << endl
-				 << endl;
-
-			cout << "Chromosome: Tim, 3." << endl;
-			cout << "Gene: CATH, Hair, " << endl;
-			cout << "Allele Sequence: BrBR, " << endl;
-			cout << "Allele 1: Brown, Dominent, Light, Recessive, " << endl;
-			cout << "Allele 2: Brown, Domient, Dark, Domient" << endl;
-			cout << "Gene: FEFEFE, Feet, " << endl;
-			cout << "Allele Sequence: BbBb." << endl;
-			cout << "Allele 1: Wide, Dominent, Flat, Recessive, " << endl;
-			cout << "Allele 2: Skinny, Domient, Flat, Recessive" << endl;
-			cout << "Gene: EYEE, Eyes, " << endl;
-			cout << "Allele Sequence: Eeee, " << endl;
-			cout << "Allele 1: Green, Dominent, Light, Recessive, " << endl;
-			cout << "Allele 2: Blue, Recessive, Light, Recessive" << endl
-				 << endl;
-
-			string Chrome_Line;
-
-			cout << "Please enter the file location of the file." << endl;
-
+			cout << "Please enter the file location of the file containing the genes you would like to import." << endl;
 			getline(cin, Chrome_Line);
-			cin.clear();
-			cin.ignore(1000, '\n');
 
-			ifstream myfile;
 			myfile.open(Chrome_Line);
-
-			vector<string> test(2);
-
-			while (!myfile.is_open())
-			{
-				cout << "File " << Chrome_Line << " could not open. Please try again." << endl;
-
-				cout << "Please enter the file location of the file containing the genes you would like to import." << endl;
-				getline(cin, Chrome_Line);
-
-				myfile.open(Chrome_Line);
-			}
-			string line = "";
-			getline(myfile, test.at(0));
-
-			char num_Genes = '0';
-			line = test.at(0);
-
-			for (unsigned int i = 0; i < line.size(); i++)
-			{
-
-				if (isdigit(line.at(i)) == true)
-				{
-					num_Genes = line.at(i);
-				}
-			}
-
-			char x = num_Genes;
-			int num_total = x - '0';
-
-			num_total = ((num_total * 5) + 1);
-
-			test.resize(num_total);
-
-			int Num = 0;
-			while (std::getline(myfile, line))
-			{
-
-				Num = Num + 1;
-
-				test.at(Num) = line;
-			}
-
-			myfile.close();
 		}
+		string line = "";
+		getline(myfile, test.at(0));
+
+		char num_Genes = '0';
+		line = test.at(0);
+
+		for (unsigned int i = 0; i < line.size(); i++)
+		{
+
+			if (isdigit(line.at(i)) == true)
+			{
+				num_Genes = line.at(i);
+			}
+		}
+
+		char x = num_Genes;
+		int num_total = x - '0';
+
+		num_total = ((num_total * 5) + 1);
+
+		test.resize(num_total);
+
+		int Num = 0;
+		while (std::getline(myfile, line))
+		{
+
+			Num = Num + 1;
+
+			test.at(Num) = line;
+		}
+
+		myfile.close();
 	}
+
+	for (unsigned int i = 0; i < test.size(); i++)
+	{
+		Chromosome = Chromosome + test.at(i);
+	}
+
+	Chromosomes.push_back(0);
+	num = Chromosomes.size() - 1;
+	entry();
+};
+int Chormes::entry()
+{
+	entry = num;
 };
 
-/*
-Need Objects again as Im outputting the data into a file which isn't hard to write, just need the ability to write to another file with reference.
+string Chromes::GetChromosome()
+{
 
-Haven't started. Can do with and without Objects void Combine(){};
-
-Working on.
-*/
+	return Chromosomes.at(entry());
+};

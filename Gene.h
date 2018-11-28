@@ -8,7 +8,6 @@ class Gene
 {
   public:
 	void GCreate();
-	void Import();
 
   private:
 	string gene;

@@ -27,6 +27,7 @@ int main(int argc, char *argv[])
 	cout << "Hello User. Please input a number to select a menu option. " << endl;
 
 	Chromes CH;
+	GenSeq Seq;
 
 	cin >> Userinput;
 
@@ -45,14 +46,14 @@ int main(int argc, char *argv[])
 		{
 			CH.Output();
 		}
-		/*else if (Userinput == 4)
+		else if (Userinput == 4)
 		{
 			CH.Input();
 		}
 		else if (Userinput == 5)
 		{
-			CH.Combine();
-		}*/
+			Seq.Combine();
+		}
 		else
 		{
 			cout << "Invalid Input." << endl;

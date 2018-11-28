@@ -27,25 +27,23 @@ void Gene::GCreate()
 		cout << "You sure you still want to make this many genes?(y/n)" << endl;
 		cin >> B;
 
-		if (B != 'n' && B != 'y')
+		while (B != 'n' && B != 'y')
 		{
-			while (B != 'n' && B != 'y')
-			{
-				B = 'o';
-				cout << "Invalid Input. Please enter y or n." << endl;
-				cin.clear();
-				cin.ignore(1000, '\n');
-				cin >> B;
-			}
+			B = 'o';
+			cout << "Invalid Input. Please enter y or n." << endl;
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cin >> B;
 		}
-		else if (B == 'n')
+
+		if (B == 'n')
 		{
 			cout << "Ok please enter the number of genes you would like to create." << endl;
 			cin >> num_Genes;
 			B = 'y';
 		}
 
-		if (B == 'y')
+		else
 		{
 
 			cout << "Ok. Please enter an aspect of the body that you can add two different modifiable triats to. EX: Light Brown Hair. You'd enter Hair in this. " << endl;
@@ -66,11 +64,6 @@ void Gene::GCreate()
 
 		//Need help here. PLEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAASsSSSSSSSSSSSSSSSSSSSSSSSSSSSSSEEEEEEEEEEEEEEEEEEEEEEEEE
 		//This is where Gene will put together all its data.
-		//gene = GeneSeq + ", " + part + ", " + allelee;
+		gene = "Gene: " + GeneSeq + ", " + part + ", " + all.GetAllelee();
 	}
-};
-
-void Gene::Import()
-{
-	cout << "Ok what Chromosome would you like to import to? " << endl;
 };
