@@ -11,29 +11,16 @@ using namespace std;
 
 void Allele::Create()
 {
-	Alleles.resize(2);
-
-	cout << "Ok. Please enter the sequence of the alleles. Should be 4 letters." << endl;
-
-	getline(cin, sequence);
-
-	//make this a testbench
-	for (unsigned int i = 0; i < sequence.size(); i++)
-	{
-		if (isdigit(sequence.at(i + 1)) == true)
-		{
-			cout << "Please enter only characters in the Allele sequence. Reenter a valid expression." << endl;
-
-			getline(cin, sequence);
-			cin.clear();
-			cin.ignore(1000, '\n');
-		}
-
-		toupper(sequence.at(i + 1));
-	}
 
 	for (int o = 0; o < 2; o++)
 	{
+		cout << "Ok. Please enter the sequence of the alleles. Should be 4 letters." << endl;
+
+		getline(cin, sequence);
+
+		Allele::Unittest();
+
+		allelee = "Allele Sequence:" + sequence;
 
 		int C = 0;
 
@@ -43,6 +30,7 @@ void Allele::Create()
 
 		cout << "Ok. Please enter whether it is dominant or recessive(2). " << endl;
 		cin >> C;
+
 		if (C != 1 && C != 2)
 		{
 			while (C != 1 && C != 2)
@@ -107,58 +95,363 @@ void Allele::Create()
 		cout << "Trait 2:    " << trait2 << endl;
 		cout << "Dominance:  " << Dominon2 << endl;
 
-		Alleles.at(o) = trait1 + ", " + Dominon1 + ", " + trait2 + ", " + Dominon2;
-		cout << Alleles.at(o);
-	}
-
-	string DomAllele = "";
-	//This will need to be in Allele.h in the end as an object. The object is a randomizer.
-	//randomizer object goes here
-	//Still need object orientation
-	int AlleleGen = 0;
-	AlleleGen = (rand() % 4) + 1;
-
-	if (Dominon1 == Dominon2)
-	{
-		AlleleGen = (rand() % 2) + 1;
-		if (AlleleGen == 1)
+		if (o == 0)
 		{
-			cout << Dominon1;
-			//set dominance as one
+			allele1 = sequence + ", " + trait1 + ", " + Dominon1 + ", " + trait2 + ", " + Dominon2;
 		}
 		else
 		{
-			cout << Dominon2;
-			//set dominance as two
+			allele2 = trait1 + ", " + Dominon1 + ", " + trait2 + ", " + Dominon2;
 		}
 	}
-	else if (Dominon1 == "Dominent")
+	Allele::Mixer();
+};
+
+void Allele::Unittest()
+{
+	for (unsigned int i = 0; i < sequence.size(); i++)
+	{
+		toupper(sequence.at(i + 1));
+
+		if (isdigit(sequence.at(i + 1)) == true)
+		{
+			cout << "Please enter only characters in the Allele sequence. Reenter a valid expression." << endl;
+
+			getline(cin, sequence);
+			cin.clear();
+			cin.ignore(1000, '\n');
+		}
+		if (sequence.size() > 4)
+		{
+			cout << "Please enter only 4 characters long in the Allele sequence. Reenter a valid expression." << endl;
+
+			getline(cin, sequence);
+			cin.clear();
+			cin.ignore(1000, '\n');
+		}
+	}
+};
+
+void Allele::GetTrait1()
+{
+	Dominon1 = "";
+	Dominon2 = "";
+
+	//testing for the dominances
+	for (unsigned int i = 0; i < allele1.size(); i++)
+	{
+		Dominon1 = Dominon1 + allele1.at(i);
+
+		if (Dominon1 == "Dominant" || Dominon1 == "Recessive")
+		{
+			i = allele1.size();
+		}
+		else if (allele1.at(i) == ' ')
+		{
+			Dominon1.clear();
+		}
+	}
+	for (unsigned int i = 0; i < allele2.size(); i++)
+	{
+		Dominon2 = Dominon2 + allele2.at(i);
+
+		if (Dominon2 == "Dominant" || Dominon2 == "Recessive")
+		{
+			i = allele2.size();
+		}
+		else if (allele2.at(i) == ' ')
+		{
+			Dominon1.clear();
+		}
+	}
+};
+
+void Allele::GetDomin1()
+{
+	num_comma = 0;
+
+	for (unsigned int i = 0; i < allele1.size(); i++)
+	{
+		trait1 = trait1 + allele1.at(i);
+
+		if (allele1.at(i) == ',')
+		{
+			num_comma = num_comma + 1;
+			if (num_comma == 2)
+			{
+				trait1.resize(trait1.size() - 1);
+				i = allele1.size();
+			}
+		}
+		else if (allele1.at(i) == ' ')
+		{
+			trait1.clear();
+		}
+	}
+	num_comma = 0;
+
+	for (unsigned int i = 0; i < allele2.size(); i++)
+	{
+		trait2 = trait2 + allele2.at(i);
+
+		if (allele2.at(i) == ',')
+		{
+			num_comma = num_comma + 1;
+			if (num_comma == 2)
+			{
+				trait2.resize(trait2.size() - 1);
+				i = allele2.size();
+			}
+		}
+		else if (allele2.at(i) == ' ')
+		{
+			trait2.clear();
+		}
+	}
+};
+
+void Allele::GetTrait2()
+{
+	//testing for second traits.
+	num_comma = 0;
+
+	for (unsigned int i = 0; i < allele1.size(); i++)
+	{
+		trait1 = trait1 + allele1.at(i);
+
+		if (allele1.at(i) == ',')
+		{
+			num_comma = num_comma + 1;
+			if (num_comma == 4)
+			{
+				trait1.resize(trait1.size() - 1);
+				i = allele1.size();
+			}
+		}
+		else if (allele1.at(i) == ' ')
+		{
+			trait1.clear();
+		}
+	}
+	num_comma = 0;
+
+	for (unsigned int i = 0; i < allele2.size(); i++)
+	{
+		trait2 = trait2 + allele2.at(i);
+
+		if (allele2.at(i) == ',')
+		{
+			num_comma = num_comma + 1;
+			if (num_comma == 4)
+			{
+				trait2.resize(trait2.size() - 1);
+				i = allele2.size();
+			}
+		}
+		else if (allele2.at(i) == ' ')
+		{
+			trait2.clear();
+		}
+	}
+};
+
+void Allele::GetDomin2()
+{
+	//testing for the second dominances.
+	int o = 0;
+
+	for (unsigned int i = 0; i < allele1.size(); i++)
+	{
+		Dominon1 = Dominon1 + allele1.at(i);
+
+		if (Dominon1 == "Dominant" || Dominon1 == "Recessive")
+		{
+			o = o + 1;
+
+			if (o == 2)
+			{
+				i = allele1.size();
+			}
+			else
+			{
+				Dominon1.clear();
+			}
+		}
+		else if (allele1.at(i) == ' ')
+		{
+			Dominon1.clear();
+		}
+	}
+	o = 0;
+	for (unsigned int i = 0; i < allele2.size(); i++)
+	{
+		Dominon2 = Dominon2 + allele2.at(i);
+
+		if (Dominon2 == "Dominant" || Dominon2 == "Recessive")
+		{
+			o = o + 1;
+
+			if (o == 2)
+			{
+				i = allele2.size();
+			}
+			else
+			{
+				Dominon2.clear();
+			}
+		}
+		else if (allele2.at(i) == ' ')
+		{
+			Dominon2.clear();
+		}
+	}
+};
+
+void Allele::Mixer()
+{
+	Allele::GetTrait1();
+
+	Allele::GetDomin1();
+
+	//Randomizer for Expressed trait 1.
+	int AlleleGen = 0;
+
+	if (Dominon1 == Dominon2 && Dominon1 == "Recessive")
+	{
+		AlleleGen = (rand() % 2) + 1;
+		Domin = "Recessive";
+		if (AlleleGen == 1)
+		{
+
+			DomTrait = trait1;
+		}
+		else
+		{
+
+			DomTrait = trait2;
+		}
+	}
+	else if (Dominon1 == Dominon2 && Dominon1 == "Dominant")
+	{
+		AlleleGen = (rand() % 2) + 1;
+		Domin = "Dominant";
+		if (AlleleGen == 1)
+		{
+
+			DomTrait = trait1;
+		}
+		else
+		{
+
+			DomTrait = trait2;
+		}
+	}
+	else if (Dominon1 == "Dominant")
 	{
 		AlleleGen = (rand() % 4) + 1;
 		if (AlleleGen == 1 || AlleleGen == 2 || AlleleGen == 3)
 		{
-			cout << Dominon1;
-			//set dominacne as 1
+
+			DomTrait = trait1;
+			Domin = "Dominant";
 		}
 		else
 		{
-			cout << Dominon2;
-			//set dominance as 2
+
+			DomTrait = trait2;
+			Domin = "Recessive";
 		}
 	}
-
-	else if (Dominon2 == "Recessive")
+	else if (Dominon1 == "Recessive")
 	{
 		AlleleGen = (rand() % 4) + 1;
 		if (AlleleGen == 1)
 		{
-			cout << Dominon1;
-			//set dominacne as 1
+			DomTrait = trait1;
+			Domin = "Dominant";
 		}
 		else
 		{
-			cout << Dominon2;
-			//set dominance as 2
+			DomTrait = trait2;
+			Domin = "Recessive";
 		}
 	}
+
+	//setss allelee to first set of data
+	allelee = allelee + "Expressed Traits: " + DomTrait + ", " + Domin;
+
+	Allele::GetTrait2();
+
+	Allele::GetDomin2();
+
+	//Randomizer for Expressed trait 2.
+
+	if (Dominon1 == Dominon2 && Dominon1 == "Recessive")
+	{
+		AlleleGen = (rand() % 2) + 1;
+		Domin = "Recessive";
+		if (AlleleGen == 1)
+		{
+
+			DomTrait = trait1;
+		}
+		else
+		{
+
+			DomTrait = trait2;
+		}
+	}
+	else if (Dominon1 == Dominon2 && Dominon1 == "Dominant")
+	{
+		AlleleGen = (rand() % 2) + 1;
+		Domin = "Dominant";
+		if (AlleleGen == 1)
+		{
+
+			DomTrait = trait1;
+		}
+		else
+		{
+
+			DomTrait = trait2;
+		}
+	}
+	else if (Dominon1 == "Dominant")
+	{
+		AlleleGen = (rand() % 4) + 1;
+		if (AlleleGen == 1 || AlleleGen == 2 || AlleleGen == 3)
+		{
+
+			DomTrait = trait1;
+			Domin = "Dominant";
+		}
+		else
+		{
+
+			DomTrait = trait2;
+			Domin = "Recessive";
+		}
+	}
+	else if (Dominon1 == "Recessive")
+	{
+		AlleleGen = (rand() % 4) + 1;
+		if (AlleleGen == 1)
+		{
+			DomTrait = trait1;
+			Domin = "Dominant";
+		}
+		else
+		{
+			DomTrait = trait2;
+			Domin = "Recessive";
+		}
+	}
+
+	//sets allele to second set of information
+	allelee = allelee + ", " + DomTrait + ", " + Domin + " Allele 1: " + allele1 + "Allele 2: " + allele2;
+};
+
+void Allele::Import()
+{
+	cout << "Ok then we will have to find the gene you would like to import to. First off what is the name of the chromosome?" << endl;
 };

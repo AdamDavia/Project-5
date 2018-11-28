@@ -1,16 +1,17 @@
 #include <iostream>
 #include <vector>
+#include "Chromes.h"
 #include "Gene.h"
 #include "Allele.h"
 #include <fstream>
 #include <algorithm>
 
 using namespace std;
-//Gene::Gene(){};
+
 void Gene::GCreate()
 
 {
-
+	Allele all;
 	string part;
 	string GeneSeq;
 
@@ -60,13 +61,16 @@ void Gene::GCreate()
 
 			cout << "Ok time to make the two alleles for this Gene." << endl;
 
-			Allele ALL;
-			ALL.Create();
+			all.Create();
 		}
 
-		Genes.resize(num_Genes);
-
+		//Need help here. PLEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAASsSSSSSSSSSSSSSSSSSSSSSSSSSSSSSEEEEEEEEEEEEEEEEEEEEEEEEE
 		//This is where Gene will put together all its data.
-		//Genes.at(i) = GeneSeq + ", " + "Allele 1: " + Alleles.at(0) + ", Allele 2: " + Alleles.at(1);
+		//gene = GeneSeq + ", " + part + ", " + allelee;
 	}
+};
+
+void Gene::Import()
+{
+	cout << "Ok what Chromosome would you like to import to? " << endl;
 };

@@ -4,21 +4,22 @@
 
 using namespace std;
 
-class Chrome
+class Chromes
 {
   private:
-	vector<std::string> Chromes;
-	int num_Chrome;
+	vector<std::string> Chromosomes;
+	unsigned int num_Chrome;
 
   public:
-	//Chrome();
-
+	void Chromesize();
 	void Create();
-
-	/*void List();
+	void List();
 	void Analyze();
+
 	void Output();
+
 	void Input();
+	/*
 	void Combine();
 */
 };

@@ -7,10 +7,10 @@ using namespace std;
 class Gene
 {
   public:
-	//Gene();
-	int num_Genes;
 	void GCreate();
-	std::vector<std::string> Genes;
+	void Import();
 
   private:
+	string gene;
+	int num_Genes;
 };
