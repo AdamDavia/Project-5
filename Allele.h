@@ -15,6 +15,7 @@ class Allele
 	void GetDomin2();
 	void Unittest();
 	string GetAllelee();
+	void Output();
 
 	Allele();
 	Allele(string &allelee);

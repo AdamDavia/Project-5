@@ -8,15 +8,28 @@ class Chromes
 {
   private:
 	unsigned int num_Chrome;
-	vector<std::string> Chromosomes;
-	string Chromosome;
-	vector<std::string> Genes;
 
-	string GetChromosome();
-	int entry();
-	int num;
+	string Chromosome;
+	vector<std::string> Chromosomes;
+
+	int entry;
 
   public:
+
+	vector<std::string> Genes;
+	int response;
+
+	string outputfile;
+	void SetGene();
+
+	void genecall();
+
+	void Validfile();
+	void GetChrome();
+	void FindGene();
+	void GeneList();
+	unsigned int num;
+	string GiveChrome();
 	void Create();
 	void List();
 	void Analyze();

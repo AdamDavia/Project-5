@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include "Chromes.h"
 #include "Gene.h"
 #include "Allele.h"
 #include <string>
@@ -8,6 +9,43 @@
 #include <algorithm>
 
 using namespace std;
+
+///home/student/src/Project_5/test.txt
+
+Allele::Allele() {}
+
+void Allele::Output()
+{
+	int y = 0;
+	Chromes C;
+	string Num = "";
+	string whichgene;
+
+	C.GetChrome();
+	C.GiveChrome();
+	C.SetGene();
+	C.FindGene();
+
+	cout << "Ok which allele would you like to use?(1/2)" << endl;
+	cin >> y;
+	while (y != 1 || y != 2)
+	{
+		cout << "Invailid input. Please enter a valid input." << endl;
+		cin >> y;
+	}
+	C.Validfile();
+
+	ofstream myfile;
+
+	if (y == 1)
+	{
+		myfile << allele1;
+	}
+	else if (y == 2)
+	{
+		myfile << allele2;
+	}
+};
 
 string Allele::GetAllelee()
 {
@@ -22,6 +60,8 @@ void Allele::Create()
 		cout << "Ok. Please enter the sequence of the alleles. Should be 4 letters." << endl;
 
 		getline(cin, sequence);
+		cin.clear();
+		cin.ignore(1000, '\n');
 
 		Allele::Unittest();
 
@@ -29,11 +69,11 @@ void Allele::Create()
 
 		int C = 0;
 
-		cout << "Ok. Please enter the first aspect of the allele." << endl;
+		cout << "Ok. Please enter the first trait of the allele." << endl;
 
 		getline(cin, trait1);
 
-		cout << "Ok. Please enter whether it is dominant or recessive(2). " << endl;
+		cout << "Ok. Please enter whether it is dominant(1) or recessive(2). " << endl;
 		cin >> C;
 
 		if (C != 1 && C != 2)
@@ -75,19 +115,21 @@ void Allele::Create()
 				cin >> C;
 				cin.clear();
 				cin.ignore(1000, '\n');
-				cout << "Ok trait 1 is set to " << C << "." << endl;
+				cout << "Ok trait 2 is set to " << C << "." << endl;
 			}
 		}
 		else if (C == 1)
 		{
 			cout << "Ok trait 1 is set to dominant." << endl;
-			Dominon1 = "Dominant";
+			Dominon2 = "Dominant";
 		}
 		else if (C == 2)
 		{
 			cout << "Ok trait 1 is set to recessive." << endl;
-			Dominon1 = "Recessive";
+			Dominon2 = "Recessive";
 		}
+
+		// home / student / src / Project_5 / test.txt
 
 		C = 0;
 
@@ -116,9 +158,9 @@ void Allele::Unittest()
 {
 	for (unsigned int i = 0; i < sequence.size(); i++)
 	{
-		toupper(sequence.at(i + 1));
+		toupper(sequence.at(i));
 
-		if (isdigit(sequence.at(i + 1)) == true)
+		if (isdigit(sequence.at(i)) == true)
 		{
 			cout << "Please enter only characters in the Allele sequence. Reenter a valid expression." << endl;
 

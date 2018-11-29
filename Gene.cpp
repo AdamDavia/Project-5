@@ -8,8 +8,11 @@
 
 using namespace std;
 
+void Gene::setgene(string intputgene)
+{
+	gene = intputgene;
+}
 void Gene::GCreate()
-
 {
 	Allele all;
 	string part;
@@ -31,9 +34,9 @@ void Gene::GCreate()
 		{
 			B = 'o';
 			cout << "Invalid Input. Please enter y or n." << endl;
+			cin >> B;
 			cin.clear();
 			cin.ignore(1000, '\n');
-			cin >> B;
 		}
 
 		if (B == 'n')
@@ -43,7 +46,7 @@ void Gene::GCreate()
 			B = 'y';
 		}
 
-		else
+		if (B == 'y')
 		{
 
 			cout << "Ok. Please enter an aspect of the body that you can add two different modifiable triats to. EX: Light Brown Hair. You'd enter Hair in this. " << endl;
@@ -62,8 +65,59 @@ void Gene::GCreate()
 			all.Create();
 		}
 
-		//Need help here. PLEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAASsSSSSSSSSSSSSSSSSSSSSSSSSSSSSSEEEEEEEEEEEEEEEEEEEEEEEEE
-		//This is where Gene will put together all its data.
 		gene = "Gene: " + GeneSeq + ", " + part + ", " + all.GetAllelee();
+		num_Genes = num_Genes - 1;
+	}
+};
+void Gene::Output()
+{
+	Chromes C;
+	C.GetChrome();
+	C.GiveChrome();
+	C.GeneList();
+	C.Validfile();
+	C.FindGene();
+
+	ofstream myfile;
+
+	myfile.open(C.outputfile, ios::app);
+
+	myfile << gene;
+
+	myfile.close();
+};
+
+void Gene::SetAllele()
+{
+	Chromes C;
+	C.FindGene();
+	C.genecall();
+	string word = "";
+	string Phrase = "";
+	int x = 0;
+	for (unsigned int i = 0; i < gene.size(); i++)
+	{
+		word = word + gene.at(i);
+
+		if (word == "1" && x == 0)
+		{
+			word.clear();
+			x = x + 1;
+		}
+		else if (word == "2" && x == 1)
+		{
+			word.clear();
+			x = 0;
+		}
+
+		if (gene.at(i) == ' ')
+		{
+			word.clear();
+		}
+
+		if (x == 1)
+		{
+			Phrase = Phrase + gene.at(i);
+		}
 	}
 };

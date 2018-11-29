@@ -7,13 +7,15 @@ class GenSeq
 {
   private:
 	vector<std::string> ChromosomePair;
+	string ChromosomeA;
+	string ChromosomeB;
+	string NewChrome;
 
   public:
 	void Combine();
 	void CreateChromosomePair();
 	void ExportChromosomePair();
 
-	void OutputOrigins();
 	void Read();
 
 	/*
@@ -21,12 +23,3 @@ class GenSeq
         bool PowerOnSelfTest();
 */
 };
-
-/*
-
-Implement unit tests for each class.
-Implement a “POST” or PowerOnSelfTest() in the GeneSequencer class that will call each classes unit tests.
-Separate each class into its own header (.h) and implementation (.cpp) file with correct header guards
-Archive project to your github account
-
-	*/

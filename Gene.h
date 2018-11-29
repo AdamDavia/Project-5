@@ -8,8 +8,13 @@ class Gene
 {
   public:
 	void GCreate();
+	void Output();
+	void SetAllele();
+
+	void setgene(string inputgene);
 
   private:
-	string gene;
 	int num_Genes;
+
+	string gene;
 };
