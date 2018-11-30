@@ -11,11 +11,12 @@ class Chromes
 
 	string Chromosome;
 	vector<std::string> Chromosomes;
-
 	int entry;
+	void Inputtester();
 
   public:
-	void CheckfileData();
+	void
+	CheckfileData();
 	vector<std::string> Genes;
 	int response;
 

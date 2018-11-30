@@ -1,0 +1,5 @@
+Need to copy the checker from Chromes to everything else now.
+Also needs to figure out a reader. Copy from Allele.
+Need to check chromoe maker
+need to check input chromoe pair
+Need to make a reader for everything. Kinda made in two or three parts. --- Needs an actual Function.

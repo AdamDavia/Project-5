@@ -57,7 +57,7 @@ void Allele::Create()
 
 	for (int o = 0; o < 2; o++)
 	{
-		cout << "Ok. Please enter the sequence of the alleles. Should be 4 letters." << endl;
+		cout << "Ok. Please enter the sequence of the alleles traits. Should be 2 letters." << endl;
 
 		getline(cin, sequence);
 		cin.clear();
@@ -178,7 +178,7 @@ void Allele::Unittest()
 			cin.clear();
 			cin.ignore(1000, '\n');
 		}
-		if (sequence.size() > 4)
+		if (sequence.size() > 2)
 		{
 			cout << "Please enter only 4 characters long in the Allele sequence. Reenter a valid expression." << endl;
 
