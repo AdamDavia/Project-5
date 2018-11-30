@@ -15,7 +15,7 @@ class Chromes
 	int entry;
 
   public:
-
+	void CheckfileData();
 	vector<std::string> Genes;
 	int response;
 

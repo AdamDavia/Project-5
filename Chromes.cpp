@@ -211,6 +211,7 @@ void Chromes::Input()
 	vector<string> test(2);
 
 	int num_Imports = 0;
+	cout << "You can only import one Chromosome at a time. If you want to import another Chromosome input from another file." << endl;
 	cout << "How many files are you going to import?" << endl;
 
 	cin >> num_Imports;
@@ -290,25 +291,44 @@ void Chromes::Input()
 
 		test.resize(num_total);
 
+		int num_commas = 0;
 		int Num = 0;
+		int what = 0;
 		while (std::getline(myfile, line))
 		{
-
 			Num = Num + 1;
-
+			what = what + 1;
+			for (unsigned int i = 0; i < line.size(); i++)
+			{
+				if (line.at(i) == ',')
+				{
+					num_commas = num_commas + 1;
+				}
+			}
+			if ((Num == 1 && line.find("Gene:") == string::npos) || (num_commas == 1 && Num == 1))
+			{
+				cout << "You've imported an improper file. Please fix your file and try again." << endl;
+			}
+			if (Num == 2 && line.find("Allele Sequence:") || Num == 2 && num_commas == 0)
+			{
+				cout << "You've imported an improper file. Please fix your file and try again." << endl;
+			}
 			test.at(Num) = line;
 		}
 
 		myfile.close();
 	}
 
+	cout << "Here is your file data: " << endl;
+
 	for (unsigned int i = 0; i < test.size(); i++)
 	{
 		Chromosome = Chromosome + test.at(i);
+		cout << test.at(i) << endl;
 	}
 
 	Chromosomes.resize(Chromosomes.size() + 1);
-	Chromosomes.at(Chromosomes.size() - 1);
+	Chromosomes.at(Chromosomes.size() - 1) = Chromosome;
 };
 void Chromes::GetChrome()
 {

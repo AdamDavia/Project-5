@@ -16,6 +16,8 @@ class Allele
 	void Unittest();
 	string GetAllelee();
 	void Output();
+	void GetAllele1();
+	void GetAllele2();
 
 	Allele();
 	Allele(string &allelee);

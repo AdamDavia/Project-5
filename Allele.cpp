@@ -120,12 +120,12 @@ void Allele::Create()
 		}
 		else if (C == 1)
 		{
-			cout << "Ok trait 1 is set to dominant." << endl;
+			cout << "Ok trait 2 is set to dominant." << endl;
 			Dominon2 = "Dominant";
 		}
 		else if (C == 2)
 		{
-			cout << "Ok trait 1 is set to recessive." << endl;
+			cout << "Ok trait 2 is set to recessive." << endl;
 			Dominon2 = "Recessive";
 		}
 
@@ -150,10 +150,20 @@ void Allele::Create()
 		{
 			allele2 = trait1 + ", " + Dominon1 + ", " + trait2 + ", " + Dominon2;
 		}
+		sequence = "";
+		trait1 = "";
+		trait2 = "";
+		Dominon1 = "";
+		Dominon2 = "";
 	}
 	Allele::Mixer();
 };
+void Allele::GetAllele1(){
 
+};
+void Allele::GetAllele2(){
+
+};
 void Allele::Unittest()
 {
 	for (unsigned int i = 0; i < sequence.size(); i++)
@@ -179,7 +189,7 @@ void Allele::Unittest()
 	}
 };
 
-void Allele::GetTrait1()
+void Allele::GetDomin1()
 {
 	Dominon1 = "";
 	Dominon2 = "";
@@ -191,6 +201,7 @@ void Allele::GetTrait1()
 
 		if (Dominon1 == "Dominant" || Dominon1 == "Recessive")
 		{
+
 			i = allele1.size();
 		}
 		else if (allele1.at(i) == ' ')
@@ -213,7 +224,7 @@ void Allele::GetTrait1()
 	}
 };
 
-void Allele::GetDomin1()
+void Allele::GetTrait1()
 {
 	num_comma = 0;
 
@@ -369,12 +380,10 @@ void Allele::Mixer()
 		Domin = "Recessive";
 		if (AlleleGen == 1)
 		{
-
 			DomTrait = trait1;
 		}
 		else
 		{
-
 			DomTrait = trait2;
 		}
 	}
@@ -384,12 +393,10 @@ void Allele::Mixer()
 		Domin = "Dominant";
 		if (AlleleGen == 1)
 		{
-
 			DomTrait = trait1;
 		}
 		else
 		{
-
 			DomTrait = trait2;
 		}
 	}
@@ -398,13 +405,11 @@ void Allele::Mixer()
 		AlleleGen = (rand() % 4) + 1;
 		if (AlleleGen == 1 || AlleleGen == 2 || AlleleGen == 3)
 		{
-
 			DomTrait = trait1;
 			Domin = "Dominant";
 		}
 		else
 		{
-
 			DomTrait = trait2;
 			Domin = "Recessive";
 		}
