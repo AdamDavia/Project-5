@@ -1,5 +1,20 @@
+
+
+
+
+
+
+
+
 Need to copy the checker from Chromes to everything else now.
+
 Also needs to figure out a reader. Copy from Allele.
-Need to check chromoe maker
-need to check input chromoe pair
-Need to make a reader for everything. Kinda made in two or three parts. --- Needs an actual Function.
+
+Need to check chrome maker all the way through
+
+need to check input chromoe pair/inputing altogether
+
+Need to make a reader for everything. Kinda made in two or three parts. --- Needs an actual Function. Half made. Need to find where it is not finsihed.
+
+/home/student/src/Project_5/test.txt
+3 Chromes

@@ -57,11 +57,11 @@ void Allele::Create()
 
 	for (int o = 0; o < 2; o++)
 	{
-		cout << "Ok. Please enter the sequence of the alleles traits. Should be 2 letters." << endl;
+		cout << "Ok. Please enter the sequence of the allele " << o + 1 << " traits. Should be 2 letters." << endl;
 
-		getline(cin, sequence);
-		cin.clear();
+		cin >> sequence;
 		cin.ignore(1000, '\n');
+		cin.clear();
 
 		Allele::Unittest();
 
@@ -100,8 +100,8 @@ void Allele::Create()
 		cout << "Ok. Please enter the second trait that correlates with the first trait of the Allele. EX: Dark Brown, Light Brown or Dark Blond, Light Blond." << endl;
 
 		getline(cin, trait2);
-		cin.clear();
 		cin.ignore(1000, '\n');
+		cin.clear();
 
 		C = 0;
 		cout << "Ok. Please enter whether it is dominant(1) or recessive(2). " << endl;
@@ -136,11 +136,14 @@ void Allele::Create()
 		cout << "Ok Allele " << o + 1 << " of the two made inside of a Gene is done. Here is the information of the first allele. Now to the next allele." << endl;
 
 		cout << "Allele " << o + 1 << ":" << endl;
-		cout << "Sequence: " << sequence << endl;
+		cout << "Sequence:   " << sequence << endl;
 		cout << "Trait 1:    " << trait1 << endl;
 		cout << "Dominance:  " << Dominon1 << endl;
 		cout << "Trait 2:    " << trait2 << endl;
-		cout << "Dominance:  " << Dominon2 << endl;
+		cout << "Dominance:  " << Dominon2 << endl
+			 << endl;
+
+		cout << "Allele " << o + 1 << " is done. " << endl;
 
 		if (o == 0)
 		{
@@ -148,7 +151,7 @@ void Allele::Create()
 		}
 		else
 		{
-			allele2 = trait1 + ", " + Dominon1 + ", " + trait2 + ", " + Dominon2;
+			allele2 = sequence + ", " + trait1 + ", " + Dominon1 + ", " + trait2 + ", " + Dominon2;
 		}
 		sequence = "";
 		trait1 = "";
@@ -166,27 +169,37 @@ void Allele::GetAllele2(){
 };
 void Allele::Unittest()
 {
-	for (unsigned int i = 0; i < sequence.size(); i++)
-	{
-		toupper(sequence.at(i));
-
-		if (isdigit(sequence.at(i)) == true)
+	int check = 0;
+	while (check != 2)
+		for (unsigned int i = 0; i < sequence.size(); i++)
 		{
-			cout << "Please enter only characters in the Allele sequence. Reenter a valid expression." << endl;
+			toupper(sequence.at(i));
 
-			getline(cin, sequence);
-			cin.clear();
-			cin.ignore(1000, '\n');
-		}
-		if (sequence.size() > 2)
-		{
-			cout << "Please enter only 4 characters long in the Allele sequence. Reenter a valid expression." << endl;
+			if (isdigit(sequence.at(i)) == true)
+			{
+				cout << "Please enter only characters in the Allele sequence. Reenter a valid expression." << endl;
 
-			getline(cin, sequence);
-			cin.clear();
-			cin.ignore(1000, '\n');
+				getline(cin, sequence);
+				cin.clear();
+				cin.ignore(1000, '\n');
+			}
+			else
+			{
+				check = 1;
+			}
+			if (sequence.size() > 2)
+			{
+				cout << "Please enter only 4 characters long in the Allele sequence. Reenter a valid expression." << endl;
+
+				getline(cin, sequence);
+				cin.clear();
+				cin.ignore(1000, '\n');
+			}
+			else
+			{
+				check = check + 1;
+			}
 		}
-	}
 };
 
 void Allele::GetDomin1()

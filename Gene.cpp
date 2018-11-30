@@ -21,7 +21,7 @@ void Gene::GCreate()
 	cout << "How many Genes do you want this Chromosome to have?" << endl;
 	cin >> num_Genes;
 
-	for (int i = 0; i <= num_Genes; i++)
+	for (int i = 0; i < num_Genes; i++)
 	{
 		char B = 'n';
 

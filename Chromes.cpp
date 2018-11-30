@@ -15,24 +15,31 @@ void Chromes::Create()
 	{
 		Chromosomes.resize(1);
 	}
-	string Name;
+	string CName;
+
 	cout << "How many chromosomes would you like to create?" << endl;
+
 	cin >> num_Chrome;
+
+	if (num_Chrome == 0)
+	{
+		Chromosomes.resize(0);
+	}
 
 	for (unsigned int y = 0; y < num_Chrome; y++)
 	{
 		cout << "Please name Chromosome " << y + 1 << "." << endl;
-		getline(cin, Name);
+		getline(cin, CName);
 		cin.clear();
 		cin.ignore(1000, '\n');
 
-		Chromosomes.at(y) = Name;
+		Chromosomes.at(y) = CName;
 
 		Gene GE;
 		GE.GCreate();
 		int x = Genes.size();
 		char b = x + '0';
-		Chromosome = "Chromosome: " + Name + ", " + b + ", ";
+		Chromosome = "Chromosome: " + CName + ", " + b + ", ";
 		for (unsigned int i = 0; i < Genes.size(); i++)
 		{
 			Chromosome = Chromosome + Genes.at(i);
@@ -266,7 +273,6 @@ void Chromes::Input()
 		Chromes::Validfile();
 
 		Chromes::Inputtester();
-
 	}
 };
 
@@ -287,8 +293,15 @@ void Chromes::Inputtester()
 
 	getline(myfile, test.at(0));
 
-	char num_Genes = '0';
 	line = test.at(0);
+
+	int num_commas = 0;
+
+	while (line.find("Chromosome:") == string::npos || num_commas != 0)
+	{
+	}
+
+	char num_Genes = '0';
 
 	for (unsigned int i = 0; i < line.size(); i++)
 	{
@@ -307,12 +320,13 @@ void Chromes::Inputtester()
 	test.resize(num_total);
 
 	int allset = 1;
-	int num_commas = 0;
+
 	int what = 0;
-	int where = 0;
+	unsigned int where = 0;
 	int xp = 0;
-	while (std::getline(myfile, line))
+	while (where < test.size())
 	{
+		std::getline(myfile, line);
 		where = where + 1;
 		if (line.at(1) == ' ')
 		{
