@@ -124,11 +124,12 @@ void GenSeq::ExportChromosomePair()
 			{
 				cout << "File " << outputfile << " could not open. Please try again." << endl;
 
-				cout << "Please enter the file location of the file containing the genes you would like to import." << endl;
+				cout << "Please enter the file location of the file containing the Chromes you would like to import." << endl;
 				getline(cin, outputfile);
 
 				myfile.open(outputfile, ios::app);
 			}
+			//finish this file
 			myfile << ChromosomeA << ChromosomeB;
 		}
 	}
