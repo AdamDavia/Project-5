@@ -57,8 +57,9 @@ void Allele::Create()
 
 	for (int o = 0; o < 2; o++)
 	{
-		cout << "Please enter the sequence of the allele " << o + 1 << " traits. Should be 2 letters." << endl;
-		cout << "This will also automatically set any of the letters that are capitalized to change the trait to Dominent and visa versa." << endl;
+		cout << "Please enter the sequence of the allele " << o + 1 << " traits. Should be 2 letters." << endl
+			 << endl;
+		cout << "This will also automatically set any of the letters that are capitalized to change the trait to Dominant and visa versa." << endl;
 		if (o == 1)
 		{
 			cout << "Make sure that the data you enter into these two traits of this allele correlates to the data of the first otherwise your data will look really wacky." << endl;
@@ -108,21 +109,24 @@ void Allele::Create()
 
 		getline(cin, trait1);
 
-		while (trait1 == "")
+		for (unsigned int i = 0; i < trait1.size(); i++)
 		{
-			char ahhhh = 'o';
-			cout << "Are you sure you don't want to give this trait a name?(y/n) It will be very hard to read the data." << endl;
-			cin >> ahhhh;
-			if (ahhhh == 'n')
+			if (trait1 == "")
 			{
-				cout << "Please enter a trait name." << endl;
-				getline(cin, trait1);
-			}
-			if (ahhhh == 'y')
-			{
-				cout << "Invalid answer. There has to be a name." << endl;
-				cout << "Please enter a trait name." << endl;
-				getline(cin, trait1);
+				char ahhhh = 'o';
+				cout << "Are you sure you don't want to give this trait a name?(y/n) It will be very hard to read the data." << endl;
+				cin >> ahhhh;
+				if (ahhhh == 'n')
+				{
+					cout << "Please enter a trait name." << endl;
+					getline(cin, trait1);
+				}
+				if (ahhhh == 'y')
+				{
+					cout << "Invalid answer. There has to be a name." << endl;
+					cout << "Please enter a trait name." << endl;
+					getline(cin, trait1);
+				}
 			}
 		}
 
@@ -195,7 +199,7 @@ void Allele::Unittest()
 			{
 				check = 1;
 			}
-			if (sequence.size() > 2)
+			if (sequence.size() > 2 || sequence.size() < 2)
 			{
 				cout << "Please enter only 2 characters long in the Allele sequence. Reenter a valid expression." << endl;
 
@@ -240,7 +244,7 @@ void Allele::GetDomin1()
 		}
 		else if (allele2.at(i) == ' ')
 		{
-			Dominon1.clear();
+			Dominon2.clear();
 		}
 	}
 };

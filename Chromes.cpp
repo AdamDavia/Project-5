@@ -112,7 +112,7 @@ void Chromes::Analyze()
 			{
 				Chromes::List();
 			}
-			if (found == 0 && name == "List")
+			if (found == 0)
 			{
 				cout << "Name not found. Please try again. If you do not know the name, type \" List \"." << endl;
 				getline(cin, name);
