@@ -1,6 +1,6 @@
 Chromosome: Tim, 4
 Gene: CATH, Hair
-Allele Sequence: BrBR
+Allele Sequence:  BrBR
 Expressed Traits: Brown, Dominent, Light, Recessive
 Allele 1: Brown, Dominent, Light, Recessive
 Allele 2: Brown, Dominent, Dark, Dominent

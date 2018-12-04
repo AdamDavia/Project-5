@@ -11,6 +11,7 @@ class Chromes
 
 	string Chromosome;
 	vector<std::string> Chromosomes;
+	void TesterList();
 	int entry;
 	void Inputtester();
 

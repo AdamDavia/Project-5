@@ -12,6 +12,18 @@
 
 using namespace std;
 
+void menu()
+{
+	cout << "1 - Create chromosome" << endl;
+	cout << "2 - Analyze chromosome" << endl;
+	cout << "3 - Output chromosome to file" << endl;
+	cout << "4 - Input chromosome from file" << endl;
+	cout << "5 - Combine chromosomes" << endl;
+	cout << "6 - Repeat Menu" << endl;
+	cout << "7 - Quit" << endl;
+	cout << "Hello User. Please input a number to select a menu option. " << endl;
+};
+
 int main(int argc, char *argv[])
 {
 
@@ -23,7 +35,8 @@ int main(int argc, char *argv[])
 	cout << "3 - Output chromosome to file" << endl;
 	cout << "4 - Input chromosome from file" << endl;
 	cout << "5 - Combine chromosomes" << endl;
-	cout << "6 - Quit" << endl;
+	cout << "6 - Repeat Menu" << endl;
+	cout << "7 - Quit" << endl;
 	cout << "Hello User. Please input a number to select a menu option. " << endl;
 
 	Chromes CH;
@@ -31,7 +44,7 @@ int main(int argc, char *argv[])
 
 	cin >> Userinput;
 
-	while (Userinput != 6)
+	while (Userinput != 7)
 	{
 
 		if (Userinput == 1)
@@ -54,13 +67,17 @@ int main(int argc, char *argv[])
 		{
 			Seq.Combine();
 		}
+		else if (Userinput == 6)
+		{
+			menu();
+		}
 		else
 		{
 			cout << "Invalid Input." << endl;
 		}
 		cin.clear();
 		cin.ignore(1000, '\n');
-		cout << "Please Enter a new input number: " << endl;
+		cout << "Please Enter a new Menu input number: " << endl;
 		cin >> Userinput;
 	}
 

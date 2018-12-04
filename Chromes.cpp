@@ -5,8 +5,20 @@
 #include "Allele.h"
 #include <fstream>
 #include <algorithm>
+#include <stdio.h>
 
 using namespace std;
+
+void Chromes::TesterList()
+{
+	for (unsigned int i = 0; i < Chromosomes.size(); i++)
+	{
+		if (Chromosomes.at(i) == "")
+		{
+			Chromosomes.erase(Chromosomes.begin() + i);
+		}
+	}
+};
 
 void Chromes::Create()
 {
@@ -21,34 +33,39 @@ void Chromes::Create()
 
 	cin >> num_Chrome;
 
-	if (num_Chrome == 0)
+	if (num_Chrome > 0)
 	{
-		Chromosomes.resize(0);
-	}
 
-	for (unsigned int y = 0; y < num_Chrome; y++)
-	{
-		cout << "Please name Chromosome " << y + 1 << "." << endl;
-		getline(cin, CName);
-		cin.clear();
-		cin.ignore(1000, '\n');
-
-		Chromosomes.at(y) = CName;
-
-		Gene GE;
-		GE.GCreate();
-		int x = Genes.size();
-		char b = x + '0';
-		Chromosome = "Chromosome: " + CName + ", " + b + ", ";
-		for (unsigned int i = 0; i < Genes.size(); i++)
+		for (unsigned int y = 0; y < num_Chrome; y++)
 		{
-			Chromosome = Chromosome + Genes.at(i);
+			cout << "Please name Chromosome " << y + 1 << "." << endl;
+			getline(cin, CName);
+			cin.clear();
+			cin.ignore(1000, '\n');
+
+			Gene GE;
+			GE.GCreate();
+
+			if (Genes.size() > 0)
+			{
+				int x = Genes.size();
+				char b = x + '0';
+				Chromosome = "Chromosome: " + CName + ", " + b;
+				for (unsigned int i = 0; i < Genes.size(); i++)
+				{
+					Chromosome = Chromosome + Genes.at(i);
+				}
+			}
+			Chromosomes.push_back(Chromosome);
 		}
-		Chromosomes.push_back(0);
 	}
+
+	Chromes::TesterList();
 };
+
 void Chromes::Analyze()
 {
+	Chromes::TesterList();
 	if (Chromosomes.size() != 0)
 	{
 		string name;
@@ -91,14 +108,14 @@ void Chromes::Analyze()
 					}
 				}
 			}
-			if (found == 0)
-			{
-				cout << "Name not found. Please try again. If you do not know the name, type \" List \"." << endl;
-				getline(cin, name);
-			}
 			if (name == "List")
 			{
 				Chromes::List();
+			}
+			if (found == 0 && name == "List")
+			{
+				cout << "Name not found. Please try again. If you do not know the name, type \" List \"." << endl;
+				getline(cin, name);
 			}
 		}
 
@@ -118,7 +135,7 @@ void Chromes::List()
 		{
 			string Name = "";
 			string help = Chromosomes.at(i);
-			cout << "Chromosome " << i << " name: ";
+			cout << "Chromosome " << i + 1 << " name: ";
 
 			for (unsigned int o = 0; o < help.size(); o++)
 			{
@@ -127,12 +144,12 @@ void Chromes::List()
 				{
 					string rid = "";
 					help.resize(o);
-					for (unsigned int p = 0; p <= help.size(); p++)
+					for (unsigned int p = 0; p < help.size(); p++)
 					{
 						rid = rid + help.at(p);
 						if (rid == "Chromosome: ")
 						{
-							for (unsigned int l = p; l <= help.size(); l++)
+							for (unsigned int l = p; l < help.size(); l++)
 							{
 								Name = help.at(l);
 							}
@@ -140,7 +157,9 @@ void Chromes::List()
 					}
 				}
 			}
+			cout << endl;
 		}
+		cout << "End of list." << endl;
 	}
 	else
 	{
@@ -219,7 +238,8 @@ void Chromes::Input()
 	int num_Imports = 0;
 	cout << "How many files are you going to import?" << endl;
 
-	cin >> num_Imports;
+	//cin >> num_Imports;
+	num_Imports = 1;
 	cin.clear();
 	cin.ignore(1000, '\n');
 
@@ -270,7 +290,8 @@ void Chromes::Input()
 
 		string Chrome_Line;
 
-		Chromes::Validfile();
+		//Chromes::Validfile();
+		outputfile = "/home/student/src/Project_5/test.txt";
 
 		Chromes::Inputtester();
 	}
@@ -284,129 +305,227 @@ void Chromes::Inputtester()
 
 	myfile.open(outputfile);
 
-	int itsfiveam;
+	int num_addChrome;
 
 	cout << "How many Chromosomes are in this file? " << endl;
-	cin >> itsfiveam;
+	//cin >> num_addChrome;
+	num_addChrome = 3;
+
+	test.resize(num_addChrome + (1 * (num_addChrome - 1)));
 
 	string line = "";
-
-	getline(myfile, test.at(0));
-
-	line = test.at(0);
-
 	int num_commas = 0;
+	unsigned int num_line = test.size();
+	getline(myfile, line);
+	int startfile = 0;
 
-	while (line.find("Chromosome:") == string::npos || num_commas != 0)
+	while (num_addChrome > 0)
 	{
+		if (line.find("Chromosome:") != string::npos)
+		{
+			for (unsigned int i = 0; i < line.size(); i++)
+			{
+
+				if (isdigit(line.at(i)) == true)
+				{
+
+					if (startfile == 0)
+					{
+						num_line = test.size();
+						startfile = 1;
+					}
+
+					if (startfile == 1)
+					{
+						char num_Genes = line.at(i);
+						char x = num_Genes;
+						num_line = x - '0';
+						num_line = (num_line * 5) + test.size();
+						if (num_line != test.size())
+						{
+							test.resize(num_line);
+						}
+						else
+						{
+							num_Genes = line.at(i);
+						}
+					}
+				}
+			}
+			num_addChrome = num_addChrome - 1;
+		}
+
+		std::getline(myfile, line);
 	}
 
-	char num_Genes = '0';
+	myfile.close();
+
+	myfile.open(outputfile);
+
+	int Num = 0;
+	while (std::getline(myfile, line))
+	{
+
+		test.at(Num) = line;
+		Num = Num + 1;
+	}
+
+	num_line = num_addChrome - 1;
+
+	//ends here
+
+	int allset = 1;
+
+	int what = 0;
+	unsigned int where = 0;
+
+	line = test.at(0);
 
 	for (unsigned int i = 0; i < line.size(); i++)
 	{
 
 		if (isdigit(line.at(i)) == true)
 		{
-			num_Genes = line.at(i);
+			char y = line.at(i);
+			char x = y;
+			num_line = x - '0';
 		}
 	}
-
-	char x = num_Genes;
-	int num_total = x - '0';
-
-	num_total = ((num_total * 5) + 1) * itsfiveam + (1 * itsfiveam);
-
-	test.resize(num_total);
-
-	int allset = 1;
-
-	int what = 0;
-	unsigned int where = 0;
-	int xp = 0;
-	while (where < test.size())
-	{
-		std::getline(myfile, line);
-		where = where + 1;
-		if (line.at(1) == ' ')
-		{
-			xp = xp + 1;
-			what = 6;
-			if (itsfiveam > xp)
-			{
-				cout << "There is an empty space where there shouldn't be in line " << where << "." << endl;
-			}
-		}
-
-		for (unsigned int i = 0; i < line.size(); i++)
-		{
-			if (line.at(i) == ',')
-			{
-				num_commas = num_commas + 1;
-			}
-		}
-		if ((what == 0 && line.find("Chromosome:") == string::npos) || (num_commas != 0 && what == 0))
-		{
-			cout << "You've imported an improper file. Please fix your file and try again." << endl;
-			cout << "You have an error in a Gene line input at " << where << "." << endl;
-			allset = 0;
-		}
-		what = what + 1;
-		if ((what == 1 && line.find("Gene:") == string::npos) || (num_commas != 1 && what == 1))
-		{
-			cout << "You've imported an improper file. Please fix your file and try again." << endl;
-			cout << "You have an error in a Gene line input at " << where << "." << endl;
-			allset = 0;
-		}
-		else if ((what == 2 && line.find("Allele Sequence:") == string::npos) || (what == 2 && num_commas != 0))
-		{
-			cout << "You've imported an improper file. Please fix your file and try again." << endl;
-			cout << "You have an error in a Allele Sequence line input at " << where << "." << endl;
-			allset = 0;
-		}
-		else if ((what == 3 && line.find("Expressed Traits:") == string::npos) || (what == 3 && num_commas != 3))
-		{
-			cout << "You've imported an improper file. Please fix your file and try again." << endl;
-			cout << "You have an error in a Expressed Triats:" << where << "." << endl;
-			allset = 0;
-		}
-		else if ((what == 4 && line.find("Allele 1:") == string::npos) || (what == 4 && num_commas != 3))
-		{
-			cout << "You've imported an improper file. Please fix your file and try again." << endl;
-			cout << "You have an error in a Allele 1:" << where << "." << endl;
-			allset = 0;
-		}
-		else if ((what == 5 && line.find("Allele 2:") == string::npos) || (what == 5 && num_commas != 3))
-		{
-			cout << "You've imported an improper file. Please fix your file and try again." << endl;
-			cout << "You have an error in a Allele 2:" << where << "." << endl;
-			allset = 0;
-		}
-		if (what == 5)
-		{
-			what = 0;
-		}
-	}
-	if (allset == 1)
-	{
-		int Num = 0;
-		while (std::getline(myfile, line))
-		{
-			Num = Num + 1;
-			test.at(Num) = line;
-		}
-	}
-	myfile.close();
-	cout << "Here is your file data: " << endl;
 
 	for (unsigned int i = 0; i < test.size(); i++)
 	{
-		Chromosome = Chromosome + test.at(i);
-		cout << test.at(i) << endl;
+
+		num_commas = 0;
+		line = test.at(i);
+
+		if ((what == 7) && (line.at(1) != ' ') && (line.size() != 0))
+		{
+
+			what = 0;
+			cout << "There is an line where there should be an empty space at line " << where << "." << endl;
+			allset = 0;
+		}
+		else if (line.size() == 0)
+		{
+			line = test.at(i + 1);
+			if (line.find("Chromosome:") != string::npos)
+			{
+				for (unsigned int i = 0; i < line.size(); i++)
+				{
+
+					if (isdigit(line.at(i)) == true)
+					{
+						char y = line.at(i);
+						char x = y;
+						num_line = x - '0';
+					}
+				}
+			}
+			line = test.at(i);
+			what = 0;
+		}
+		else if (line.size() > 0)
+		{
+
+			for (unsigned int o = 0; o < line.size(); o++)
+			{
+				if (line.at(o) == ',')
+				{
+					num_commas = num_commas + 1;
+				}
+			}
+			if (((what == 0) && (line.find("Chromosome:") == string::npos)) || ((what == 0) && (num_commas != 1)))
+			{
+				cout << "You've imported an improper file. Please fix your file and try again." << endl;
+				cout << "You have an error in a Chromosome line input at " << where << "." << endl;
+				allset = 0;
+			}
+			else if (((what == 1) && (line.find("Gene:") == string::npos)) || ((what == 1) && (num_commas != 1)))
+			{
+				cout << "You've imported an improper file. Please fix your file and try again." << endl;
+				cout << "You have an error in a Gene line input at " << where << "." << endl;
+				allset = 0;
+			}
+			else if (((what == 2) && (line.find("Allele Sequence:") == string::npos)) || ((what == 2) && (num_commas != 0)))
+			{
+				cout << "You've imported an improper file. Please fix your file and try again." << endl;
+				cout << "You have an error in a Allele Sequence line input at " << where << "." << endl;
+				allset = 0;
+			}
+			else if (((what == 3) && (line.find("Expressed Traits:") == string::npos)) || ((what == 3) && (num_commas != 3)))
+			{
+				cout << "You've imported an improper file. Please fix your file and try again." << endl;
+				cout << "You have an error in a Expressed Triats:" << where << "." << endl;
+				allset = 0;
+			}
+			else if (((what == 4) && (line.find("Allele 1:") == string::npos)) || ((what == 4) && (num_commas != 3)))
+			{
+				cout << "You've imported an improper file. Please fix your file and try again." << endl;
+				cout << "You have an error in a Allele 1:" << where << "." << endl;
+				allset = 0;
+			}
+			else if (((what == 5) && (line.find("Allele 2:") == string::npos)) || ((what == 5) && (num_commas != 3)))
+			{
+				cout << "You've imported an improper file. Please fix your file and try again." << endl;
+				cout << "You have an error in a Allele 2:" << where << "." << endl;
+				allset = 0;
+			}
+
+			if (what == 5)
+			{
+				what = 0;
+				num_line = num_line - 1;
+			}
+
+			if ((what == 1) && (num_line == 0))
+			{
+				what = 7;
+			}
+			else
+			{
+				what = what + 1;
+			}
+		}
+
+		where = where + 1;
 	}
 
-	Chromosomes.resize(Chromosomes.size() + 1);
-	Chromosomes.at(Chromosomes.size() - 1) = Chromosome;
+	if (allset == 1)
+	{
+		myfile.close();
+		cout << "Here is your file data: " << endl;
+
+		for (unsigned int i = 0; i < test.size(); i++)
+		{
+			Chromosome = Chromosome + test.at(i);
+			cout << test.at(i) << endl;
+		}
+
+		Chromosome.clear();
+		Chromosome = test.at(0);
+
+		for (unsigned int i = 1; i < test.size(); i++)
+		{
+			line = test.at(i);
+
+			if (line.find("Chromosome: ") == string::npos)
+			{
+				Chromosome = Chromosome + test.at(i);
+			}
+			else
+			{
+				cout << Chromosome;
+				Chromosome = Chromosome + test.at(i);
+				Chromosomes.push_back(Chromosome);
+				Chromosome.clear();
+			}
+		}
+		//Why is my data disappering wtf
+	}
+	else
+	{
+		cout << "Please fix these errors and try again. Returning to main menu." << endl;
+	}
 };
 
 void Chromes::GetChrome()

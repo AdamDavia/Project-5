@@ -1,20 +1,32 @@
+Tested:
+Import
+
+
+
+Needs Testing/Needs building:
+References/data collection/forming a reader
+Analyze
+Meiosis
+Create
+Output
+Chromosome pair
+
+
+Errors:
+Change number of creations to zero in genes
+Output mixer first half
+List function
+Gene show number after changing amount
 
 
 
 
-
-
-
-
-Need to copy the checker from Chromes to everything else now.
-
-Also needs to figure out a reader. Copy from Allele.
-
-Need to check chrome maker all the way through
-
-need to check input chromoe pair/inputing altogether
-
-Need to make a reader for everything. Kinda made in two or three parts. --- Needs an actual Function. Half made. Need to find where it is not finsihed.
 
 /home/student/src/Project_5/test.txt
+/home/student/src/Project_5/Work.txt
 3 Chromes
+
+Do we still make the ability to export from any chromosome?
+Or leave at Chromosomes only.
+
+

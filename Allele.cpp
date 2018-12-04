@@ -57,7 +57,13 @@ void Allele::Create()
 
 	for (int o = 0; o < 2; o++)
 	{
-		cout << "Ok. Please enter the sequence of the allele " << o + 1 << " traits. Should be 2 letters." << endl;
+		cout << "Please enter the sequence of the allele " << o + 1 << " traits. Should be 2 letters." << endl;
+		cout << "This will also automatically set any of the letters that are capitalized to change the trait to Dominent and visa versa." << endl;
+		if (o == 1)
+		{
+			cout << "Make sure that the data you enter into these two traits of this allele correlates to the data of the first otherwise your data will look really wacky." << endl;
+			//Shorter way of making a data tester. Can't really test their data without a defined set of parameters for data which were not defined.
+		}
 
 		cin >> sequence;
 		cin.ignore(1000, '\n');
@@ -65,73 +71,82 @@ void Allele::Create()
 
 		Allele::Unittest();
 
-		allelee = "Allele Sequence:" + sequence;
-
-		int C = 0;
-
-		cout << "Ok. Please enter the first trait of the allele." << endl;
-
-		getline(cin, trait1);
-
-		cout << "Ok. Please enter whether it is dominant(1) or recessive(2). " << endl;
-		cin >> C;
-
-		if (C != 1 && C != 2)
-		{
-			while (C != 1 && C != 2)
-			{
-				cout << "Invalid Input. Please enter 1 or 2." << endl;
-				cin >> C;
-			}
-		}
-		else if (C == 1)
+		if (isupper(sequence[0]))
 		{
 			cout << "Ok trait 1 is set to dominant." << endl;
 			Dominon1 = "Dominant";
 		}
-		else if (C == 2)
+		else
 		{
 			cout << "Ok trait 1 is set to recessive." << endl;
 			Dominon1 = "Recessive";
 		}
 
-		C = 0;
-
-		cout << "Ok. Please enter the second trait that correlates with the first trait of the Allele. EX: Dark Brown, Light Brown or Dark Blond, Light Blond." << endl;
-
-		getline(cin, trait2);
-		cin.ignore(1000, '\n');
-		cin.clear();
-
-		C = 0;
-		cout << "Ok. Please enter whether it is dominant(1) or recessive(2). " << endl;
-		cin >> C;
-
-		if (C != 1 && C != 2)
-		{
-			while (C != 1 && C != 2)
-			{
-				cout << "Invalid Input. Please enter 1 or 2." << endl;
-				cin >> C;
-				cin.clear();
-				cin.ignore(1000, '\n');
-				cout << "Ok trait 2 is set to " << C << "." << endl;
-			}
-		}
-		else if (C == 1)
+		if (isupper(sequence[1]))
 		{
 			cout << "Ok trait 2 is set to dominant." << endl;
 			Dominon2 = "Dominant";
 		}
-		else if (C == 2)
+		else
 		{
 			cout << "Ok trait 2 is set to recessive." << endl;
 			Dominon2 = "Recessive";
 		}
 
-		// home / student / src / Project_5 / test.txt
+		if (o == 0)
+		{
+			allelee = "Allele Sequence:" + sequence;
+		}
+		else
+		{
+			int i = 0;
+			i = allelee.find("Allele Sequence");
+			allelee.insert(i, sequence);
+		}
 
-		C = 0;
+		cout << "Ok. Please enter the first trait of the allele." << endl;
+
+		getline(cin, trait1);
+
+		while (trait1 == "")
+		{
+			char ahhhh = 'o';
+			cout << "Are you sure you don't want to give this trait a name?(y/n) It will be very hard to read the data." << endl;
+			cin >> ahhhh;
+			if (ahhhh == 'n')
+			{
+				cout << "Please enter a trait name." << endl;
+				getline(cin, trait1);
+			}
+			if (ahhhh == 'y')
+			{
+				cout << "Invalid answer. There has to be a name." << endl;
+				cout << "Please enter a trait name." << endl;
+				getline(cin, trait1);
+			}
+		}
+
+		cout << "Ok. Please enter the second trait that correlates with the first trait of the Allele. EX: Dark Brown, Light Brown or Dark Blond, Light Blond." << endl;
+
+		getline(cin, trait2);
+
+		while (trait2 == "")
+		{
+			char ahhhh = 'o';
+			cout << "Are you sure you don't want to give this trait a name?(y/n) It will be very hard to read the data." << endl;
+			cin >> ahhhh;
+			if (ahhhh == 'n')
+			{
+				cout << "Please enter a trait name." << endl;
+				getline(cin, trait2);
+			}
+			if (ahhhh == 'y')
+			{
+				cout << "Invalid answer. There has to be a name." << endl;
+				cout << "Please enter a trait name." << endl;
+				getline(cin, trait2);
+			}
+		}
 
 		cout << "Ok Allele " << o + 1 << " of the two made inside of a Gene is done. Here is the information of the first allele. Now to the next allele." << endl;
 
@@ -161,19 +176,12 @@ void Allele::Create()
 	}
 	Allele::Mixer();
 };
-void Allele::GetAllele1(){
-
-};
-void Allele::GetAllele2(){
-
-};
 void Allele::Unittest()
 {
 	int check = 0;
 	while (check != 2)
 		for (unsigned int i = 0; i < sequence.size(); i++)
 		{
-			toupper(sequence.at(i));
 
 			if (isdigit(sequence.at(i)) == true)
 			{
@@ -189,7 +197,7 @@ void Allele::Unittest()
 			}
 			if (sequence.size() > 2)
 			{
-				cout << "Please enter only 4 characters long in the Allele sequence. Reenter a valid expression." << endl;
+				cout << "Please enter only 2 characters long in the Allele sequence. Reenter a valid expression." << endl;
 
 				getline(cin, sequence);
 				cin.clear();
@@ -514,4 +522,43 @@ void Allele::Mixer()
 
 	//sets allele to second set of information
 	allelee = allelee + ", " + DomTrait + ", " + Domin + " Allele 1: " + allele1 + "Allele 2: " + allele2;
+	cout << allelee;
 };
+
+Allele::Allele(string &allele)
+{
+	allele1 = "";
+	allele2 = "";
+
+	//testing for the alleles
+	for (unsigned int i = 0; i < allele.size(); i++)
+	{
+		allele1 = allele1 + allele.at(i);
+
+		if (allele1 == "1")
+		{
+
+			i = allele1.size();
+		}
+		else if (allele1.at(i) == ' ')
+		{
+			allele1.clear();
+		}
+	}
+	for (unsigned int i = 0; i < allele2.size(); i++)
+	{
+		allele2 = allele2 + allele.at(i);
+
+		if (allele2 == "2")
+		{
+			i = allele2.size();
+		}
+		else if (allele2.at(i) == ' ')
+		{
+			allele2.clear();
+		}
+	}
+}
+void Allele::GetAllele2()
+{
+}
