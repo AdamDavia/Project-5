@@ -5,12 +5,13 @@
 */
 #include <iostream>
 #include <vector>
-#include "GeneSeq.h"
 #include "Gene.h"
 #include "Allele.h"
 #include "Chromes.h"
 
 using namespace std;
+
+vector<string> Chromosomess;
 
 void menu()
 {
@@ -34,15 +35,20 @@ int main(int argc, char *argv[])
 	cout << "2 - Analyze chromosome" << endl;
 	cout << "3 - Output chromosome to file" << endl;
 	cout << "4 - Input chromosome from file" << endl;
-	cout << "5 - Combine chromosomes" << endl;
+	cout << "5 - Meiosis" << endl;
 	cout << "6 - Repeat Menu" << endl;
 	cout << "7 - Quit" << endl;
 	cout << "Hello User. Please input a number to select a menu option. " << endl;
 
 	Chromes CH;
-	GenSeq Seq;
 
-	cin >> Userinput;
+	string temp;
+	getline(cin, temp);
+	while (!CH.Check(temp, Userinput))
+	{
+		cout << "Please enter a valid number." << endl;
+		getline(cin, temp);
+	}
 
 	while (Userinput != 7)
 	{
@@ -65,7 +71,14 @@ int main(int argc, char *argv[])
 		}
 		else if (Userinput == 5)
 		{
-			Seq.Combine();
+			if (CH.Sizer() < 2)
+			{
+				cout << "Please create or import two Chromosomes and try again." << endl;
+			}
+			else if (CH.Sizer() > 2)
+			{
+				CH.CreateChromosomePair();
+			}
 		}
 		else if (Userinput == 6)
 		{
@@ -75,10 +88,15 @@ int main(int argc, char *argv[])
 		{
 			cout << "Invalid Input." << endl;
 		}
-		cin.clear();
-		cin.ignore(1000, '\n');
+
 		cout << "Please Enter a new Menu input number: " << endl;
-		cin >> Userinput;
+		string temp;
+		getline(cin, temp);
+		while (!CH.Check(temp, Userinput))
+		{
+			cout << "Please enter a valid number." << endl;
+			getline(cin, temp);
+		}
 	}
 
 	{

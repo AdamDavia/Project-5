@@ -8,81 +8,73 @@
 
 using namespace std;
 
+Gene::Gene() {}
+
 void Gene::setgene(string intputgene)
 {
 	gene = intputgene;
 }
+
 void Gene::GCreate()
 {
 	Allele all;
 	string part;
 	string GeneSeq;
+	Chromes C;
 
 	cout << "How many Genes do you want this Chromosome to have?" << endl;
-	cin >> num_Genes;
+	string temp;
+
+	getline(cin, temp);
+
+	while (!C.Check(temp, num_Genes) && num_Genes < 1)
+	{
+		cout << "Please enter a valid number." << endl;
+		getline(cin, temp);
+	}
 
 	if (num_Genes > 0)
 	{
-		for (int i = 0; i < num_Genes; i++)
+		for (int i = 0; i <= num_Genes; i++)
 		{
-			char B = 'n';
+			string B = "n";
 
 			cout << "Ok. We have to make " << num_Genes - i << " genes." << endl;
 
-			cout << "You sure you still want to make this many genes?(y/n)" << endl;
-			cin >> B;
+			cout << "Ok. Please enter an aspect of the body that you can add two different modifiable triats to. EX: Light Brown Hair. You'd enter Hair in this. " << endl;
+			getline(cin, part);
 
-			while (B != 'n' && B != 'y')
-			{
-				B = 'o';
-				cout << "Invalid Input. Please enter y or n." << endl;
-				cin >> B;
-				cin.clear();
-				cin.ignore(1000, '\n');
-			}
+			cout << "Ok. Please enter the Gene Sequence or Gene name." << endl;
+			cout << "This usually relates to the aspect of the body but doesn't matter really." << endl;
+			cout << "This program will only use it as reference if you have multiple genes modifying alike parts." << endl;
 
-			if (B == 'n')
-			{
-				cout << "Ok please enter the number of genes you would like to create." << endl;
-				cin >> num_Genes;
-				while (isdigit(num_Genes) != true)
-				{
-					cout << "Please enter a valid input." << endl;
-					cin >> num_Genes;
-				}
-			}
+			getline(cin, GeneSeq);
 
-			if (B == 'y')
-			{
+			cout << "Ok time to make the two alleles for this Gene." << endl;
 
-				cout << "Ok. Please enter an aspect of the body that you can add two different modifiable triats to. EX: Light Brown Hair. You'd enter Hair in this. " << endl;
-				cin.clear();
-				cin.ignore(1000, '\n');
-				getline(cin, part);
+			all.Create();
 
-				cout << "Ok. Please enter the Gene Sequence or Gene name." << endl;
-				cout << "This usually relates to the aspect of the body but doesn't matter really." << endl;
-				cout << "This program will only use it as reference if you have multiple genes modifying alike parts." << endl;
+			gene = "Gene: " + GeneSeq + ", " + part + ". " + all.GetAllelee();
+			cout << gene << endl;
+			Chromes C;
 
-				getline(cin, GeneSeq);
-				cin.clear();
-				cin.ignore(1000, '\n');
-
-				cout << "Ok time to make the two alleles for this Gene." << endl;
-
-				all.Create();
-
-				gene = "Gene: " + GeneSeq + ", " + part + ", " + all.GetAllelee();
-				//Genes.push_back(gene);
-				//Need to set genes in vector of Chromosome.
-			}
+			C.addgenie(gene);
 		}
 	}
 };
-void Gene::Output()
+int Gene::num_Genies()
+{
+	return num_Genes;
+}
+string Gene::GetGene()
+{
+	return this->gene;
+}
+
+/*void Gene::Output()
 {
 	Chromes C;
-	C.GetChrome();
+	C.Analyze();
 	C.GiveChrome();
 	C.GeneList();
 	C.Validfile();
@@ -96,6 +88,8 @@ void Gene::Output()
 
 	myfile.close();
 };
+Was working on but didn't finish.
+
 
 void Gene::SetAllele()
 {
@@ -131,3 +125,4 @@ void Gene::SetAllele()
 		}
 	}
 };
+*/

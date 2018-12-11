@@ -13,7 +13,7 @@ using namespace std;
 ///home/student/src/Project_5/test.txt
 
 Allele::Allele() {}
-
+/*
 void Allele::Output()
 {
 	int y = 0;
@@ -21,17 +21,29 @@ void Allele::Output()
 	string Num = "";
 	string whichgene;
 
-	C.GetChrome();
+	C.Analyze();
 	C.GiveChrome();
 	C.SetGene();
 	C.FindGene();
 
 	cout << "Ok which allele would you like to use?(1/2)" << endl;
-	cin >> y;
+	string temp;
+	getline(cin, temp);
+	while (!C.Check(temp, y))
+	{
+		cout << "Please enter a valid number." << endl;
+		getline(cin, temp);
+	}
+
 	while (y != 1 || y != 2)
 	{
 		cout << "Invailid input. Please enter a valid input." << endl;
-		cin >> y;
+		getline(cin, temp);
+		while (!C.Check(temp, y))
+		{
+			cout << "Please enter a valid number." << endl;
+			getline(cin, temp);
+		}
 	}
 	C.Validfile();
 
@@ -46,7 +58,7 @@ void Allele::Output()
 		myfile << allele2;
 	}
 };
-
+*/
 string Allele::GetAllelee()
 {
 	return allelee;
@@ -57,18 +69,16 @@ void Allele::Create()
 
 	for (int o = 0; o < 2; o++)
 	{
-		cout << "Please enter the sequence of the allele " << o + 1 << " traits. Should be 2 letters." << endl
-			 << endl;
-		cout << "This will also automatically set any of the letters that are capitalized to change the trait to Dominant and visa versa." << endl;
+		cout << "Please enter the sequence of the allele " << o + 1 << " traits. Should be 2 letters." << endl;
+		cout << "This will also automatically set any of the letters that are capitalized to change the trait to Dominent and visa versa." << endl;
 		if (o == 1)
 		{
-			cout << "Make sure that the data you enter into these two traits of this allele correlates to the data of the first otherwise your data will look really wacky." << endl;
+			cout << "Make sure that the data you enter into these two traits of this allele correlates to the data of the first." << endl;
+			cout << "Otherwise your data will look really wacky." << endl;
 			//Shorter way of making a data tester. Can't really test their data without a defined set of parameters for data which were not defined.
 		}
 
-		cin >> sequence;
-		cin.ignore(1000, '\n');
-		cin.clear();
+		getline(cin, sequence);
 
 		Allele::Unittest();
 
@@ -94,39 +104,25 @@ void Allele::Create()
 			Dominon2 = "Recessive";
 		}
 
-		if (o == 0)
-		{
-			allelee = "Allele Sequence:" + sequence;
-		}
-		else
-		{
-			int i = 0;
-			i = allelee.find("Allele Sequence");
-			allelee.insert(i, sequence);
-		}
-
 		cout << "Ok. Please enter the first trait of the allele." << endl;
 
 		getline(cin, trait1);
 
-		for (unsigned int i = 0; i < trait1.size(); i++)
+		while (trait1 == "")
 		{
-			if (trait1 == "")
+			string ahhhh = "o";
+			cout << "Are you sure you don't want to give this trait a name?(y/n) It will be very hard to read the data." << endl;
+			getline(cin, ahhhh);
+			if (ahhhh == "n")
 			{
-				char ahhhh = 'o';
-				cout << "Are you sure you don't want to give this trait a name?(y/n) It will be very hard to read the data." << endl;
-				cin >> ahhhh;
-				if (ahhhh == 'n')
-				{
-					cout << "Please enter a trait name." << endl;
-					getline(cin, trait1);
-				}
-				if (ahhhh == 'y')
-				{
-					cout << "Invalid answer. There has to be a name." << endl;
-					cout << "Please enter a trait name." << endl;
-					getline(cin, trait1);
-				}
+				cout << "Please enter a trait name." << endl;
+				getline(cin, trait1);
+			}
+			if (ahhhh == "y")
+			{
+				cout << "Invalid answer. There has to be a name." << endl;
+				cout << "Please enter a trait name." << endl;
+				getline(cin, trait1);
 			}
 		}
 
@@ -136,15 +132,15 @@ void Allele::Create()
 
 		while (trait2 == "")
 		{
-			char ahhhh = 'o';
+			string ahhhh = "o";
 			cout << "Are you sure you don't want to give this trait a name?(y/n) It will be very hard to read the data." << endl;
-			cin >> ahhhh;
-			if (ahhhh == 'n')
+			getline(cin, ahhhh);
+			if (ahhhh == "n")
 			{
 				cout << "Please enter a trait name." << endl;
 				getline(cin, trait2);
 			}
-			if (ahhhh == 'y')
+			if (ahhhh == "y")
 			{
 				cout << "Invalid answer. There has to be a name." << endl;
 				cout << "Please enter a trait name." << endl;
@@ -192,61 +188,22 @@ void Allele::Unittest()
 				cout << "Please enter only characters in the Allele sequence. Reenter a valid expression." << endl;
 
 				getline(cin, sequence);
-				cin.clear();
-				cin.ignore(1000, '\n');
 			}
 			else
 			{
 				check = 1;
 			}
-			if (sequence.size() > 2 || sequence.size() < 2)
+			if (sequence.size() > 2)
 			{
 				cout << "Please enter only 2 characters long in the Allele sequence. Reenter a valid expression." << endl;
 
 				getline(cin, sequence);
-				cin.clear();
-				cin.ignore(1000, '\n');
 			}
 			else
 			{
 				check = check + 1;
 			}
 		}
-};
-
-void Allele::GetDomin1()
-{
-	Dominon1 = "";
-	Dominon2 = "";
-
-	//testing for the dominances
-	for (unsigned int i = 0; i < allele1.size(); i++)
-	{
-		Dominon1 = Dominon1 + allele1.at(i);
-
-		if (Dominon1 == "Dominant" || Dominon1 == "Recessive")
-		{
-
-			i = allele1.size();
-		}
-		else if (allele1.at(i) == ' ')
-		{
-			Dominon1.clear();
-		}
-	}
-	for (unsigned int i = 0; i < allele2.size(); i++)
-	{
-		Dominon2 = Dominon2 + allele2.at(i);
-
-		if (Dominon2 == "Dominant" || Dominon2 == "Recessive")
-		{
-			i = allele2.size();
-		}
-		else if (allele2.at(i) == ' ')
-		{
-			Dominon2.clear();
-		}
-	}
 };
 
 void Allele::GetTrait1()
@@ -334,6 +291,39 @@ void Allele::GetTrait2()
 		else if (allele2.at(i) == ' ')
 		{
 			trait2.clear();
+		}
+	}
+};
+
+void Allele::GetDomin1()
+{
+
+	//testing for the dominances
+	for (unsigned int i = 0; i < allele1.size(); i++)
+	{
+		Dominon1 = Dominon1 + allele1.at(i);
+
+		if (Dominon1 == "Dominant" || Dominon1 == "Recessive")
+		{
+
+			i = allele1.size();
+		}
+		else if (allele1.at(i) == ' ')
+		{
+			Dominon1.clear();
+		}
+	}
+	for (unsigned int i = 0; i < allele2.size(); i++)
+	{
+		Dominon2 = Dominon2 + allele2.at(i);
+
+		if (Dominon2 == "Dominant" || Dominon2 == "Recessive")
+		{
+			i = allele2.size();
+		}
+		else if (allele2.at(i) == ' ')
+		{
+			Dominon2.clear();
 		}
 	}
 };
@@ -455,7 +445,7 @@ void Allele::Mixer()
 	}
 
 	//setss allelee to first set of data
-	allelee = allelee + "Expressed Traits: " + DomTrait + ", " + Domin;
+	allelee = "Allele Expressed Traits: " + DomTrait + ", " + Domin;
 
 	Allele::GetTrait2();
 
@@ -515,54 +505,139 @@ void Allele::Mixer()
 		if (AlleleGen == 1)
 		{
 			DomTrait = trait1;
-			Domin = "Dominant";
+			Domin = "Recessive";
 		}
 		else
 		{
 			DomTrait = trait2;
-			Domin = "Recessive";
+			Domin = "Dominant";
 		}
 	}
 
 	//sets allele to second set of information
-	allelee = allelee + ", " + DomTrait + ", " + Domin + " Allele 1: " + allele1 + "Allele 2: " + allele2;
-	cout << allelee;
+	allelee = allelee + ", " + DomTrait + ", " + Domin + "." + " Allele 1: " + allele1 + "." + "Allele 2: " + allele2 + ".";
+	cout << allelee << endl;
 };
 
-Allele::Allele(string &allele)
+void Allele::setAllele1(string &all)
 {
 	allele1 = "";
 	allele2 = "";
+	int xx = 0;
 
 	//testing for the alleles
-	for (unsigned int i = 0; i < allele.size(); i++)
+	for (unsigned int i = 0; i < all.size(); i++)
 	{
-		allele1 = allele1 + allele.at(i);
-
-		if (allele1 == "1")
+		if (all.at(i) == '.')
 		{
-
-			i = allele1.size();
+			xx = xx + 1;
 		}
-		else if (allele1.at(i) == ' ')
+		if (xx >= 3 && all.at(i) != '.')
 		{
-			allele1.clear();
+			allele1 = allele1 + all.at(i);
+		}
+		if (all.at(i) == '.' && allele1.find("Allele 1") != string::npos)
+		{
+			allele1 = allele1 + '.';
+			i = all.size();
 		}
 	}
-	for (unsigned int i = 0; i < allele2.size(); i++)
+	xx = 0;
+	for (unsigned int i = 0; i < all.size(); i++)
 	{
-		allele2 = allele2 + allele.at(i);
-
-		if (allele2 == "2")
+		if (all.at(i) == '.')
 		{
-			i = allele2.size();
+			xx = xx + 1;
 		}
-		else if (allele2.at(i) == ' ')
+		if (xx >= 8 && all.at(i) != '.')
 		{
-			allele2.clear();
+			allele2 = allele2 + all.at(i);
+		}
+		if (all.at(i) == '.' && allele2.find("Allele 1") != string::npos)
+		{
+			allele2 = allele2 + '.';
+			i = all.size();
 		}
 	}
+	allele1.insert(9, ",");
+	allele1.erase(0, 9);
+
+	allele2.insert(9, ",");
+	allele2.erase(0, 9);
+
+	Allele::Mixer();
+
+	allelee.erase(0, 25);
+	allelee.insert(0, "Allele 1: ");
+	allelee.erase(allelee.find('.'));
+
+	Allele::setAllele2(all);
 }
-void Allele::GetAllele2()
+void Allele::setAllele2(string &all)
 {
+	allele1 = "";
+	allele2 = "";
+	int xx = 0;
+
+	//testing for the alleles
+	for (unsigned int i = 0; i < all.size(); i++)
+	{
+		if (all.at(i) == '.')
+		{
+			xx = xx + 1;
+		}
+		if (xx >= 4 && all.at(i) != '.')
+		{
+			allele1 = allele1 + all.at(i);
+		}
+		if (all.at(i) == '.' && allele1.find("Allele 2") != string::npos)
+		{
+			allele1 = allele1 + '.';
+			i = all.size();
+		}
+	}
+
+	xx = 0;
+
+	for (unsigned int i = 0; i < all.size(); i++)
+	{
+		if (all.at(i) == '.')
+		{
+			xx = xx + 1;
+		}
+		if (xx >= 9 && all.at(i) != '.')
+		{
+
+			allele2 = allele2 + all.at(i);
+		}
+		if (all.at(i) == '.' && allele2.find("Allele 2") != string::npos)
+		{
+			allele2 = allele2 + '.';
+			i = all.size();
+		}
+	}
+
+	Store = allelee;
+
+	allele1.insert(9, ",");
+	allele1.erase(0, 9);
+
+	allele2.insert(9, ",");
+	allele2.erase(0, 9);
+
+	Allele::Mixer();
+
+	allelee.erase(0, 25);
+	allelee.insert(0, "Allele 2: ");
+	allelee.erase(allelee.find('.'));
+};
+
+string Allele::NewGeus()
+{
+	return allelee;
+}
+
+string Allele::NewGene()
+{
+	return Store;
 }

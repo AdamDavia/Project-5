@@ -1,32 +1,11 @@
-Tested:
-Import
+Need to figure out the two genes that are being mixed.
+Need a reader for Chromes to genes.
 
-
-
-Needs Testing/Needs building:
-References/data collection/forming a reader
-Analyze
-Meiosis
-Create
-Output
-Chromosome pair
-
-
-Errors:
-Change number of creations to zero in genes
-Output mixer first half
-List function
-Gene show number after changing amount
-
-
-
+Need to finish reader in allele
 
 
 /home/student/src/Project_5/test.txt
 /home/student/src/Project_5/Work.txt
 3 Chromes
 
-Do we still make the ability to export from any chromosome?
-Or leave at Chromosomes only.
-
-
+"Gene: CATH, Hair.Allele Sequence:  BrBR.Expressed Traits: Brown, Dominent, Light, Recessive.Allele 1: Brown, Dominent, Light, Recessive.Allele 2: Grey, Dominent, Dark, Dominent.Gene: CATH, Hair.Allele"...

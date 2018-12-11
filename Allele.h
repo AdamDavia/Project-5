@@ -9,6 +9,7 @@ class Allele
   public:
 	void Create();
 	void Mixer();
+	void Mixer2();
 	void GetTrait1();
 	void GetTrait2();
 	void GetDomin1();
@@ -16,13 +17,15 @@ class Allele
 	void Unittest();
 	string GetAllelee();
 	void Output();
-	void GetAllele1();
-	void GetAllele2();
+	void setAllele1(string &all);
+	void setAllele2(string &all);
 
 	Allele();
-	Allele(string &allelee);
+	string NewGene();
+	string NewGeus();
 
   private:
+	string Store;
 	int num_comma;
 	string sequence;
 	string trait1;
